@@ -1,0 +1,35 @@
+﻿{
+  "essays": [],
+  "lists": [
+    {
+      "title": { "en": "Memorize 100 Chinese Classical Poems and Prose Pieces", "zh": "背诵100篇中国古诗文" },
+      "count": 100,
+      "progress": 3,
+      "items": [
+        "《生于忧患，死于安乐》 -- 孟子",
+        "《富贵不能淫》 -- 孟子",
+        "《春江花月夜》 -- 张若虚"
+      ]
+    },
+    {
+      "title": { "en": "Discover 100 Hidden Gem Songs", "zh": "发现100首宝藏歌曲" },
+      "count": 100,
+      "progress": 3,
+      "items": [
+        "《在你的身边》 -- 盛哲",
+        "《身骑白马》 -- 徐佳莹",
+        "《我记得》 -- 赵雷"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "date": "2026-03-31",
+      "type": { "en": "Movie", "zh": "电影" },
+      "title": { "en": "The Rescue Plan", "zh": "拯救计划" },
+      "note": { "en": "A mindless sci-fi film with a strong humanistic tone.", "zh": "带有强烈人文色彩的无脑科幻片。" },
+      "rating": 4
+    }
+  ]
+}
+

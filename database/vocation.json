@@ -1,0 +1,37 @@
+﻿{
+  "stats": [
+    {"name": {"en": "Tidy", "zh": "干净"}, "rating": 4, "category": "presence", "categoryName": {"en": "Presence", "zh": "形格"}},
+    {"name": {"en": "Make Money", "zh": "搞钱"}, "rating": 2, "category": "proof", "categoryName": {"en": "Proof", "zh": "事功"}},
+    {"name": {"en": "Be Better", "zh": "精益求精"}, "rating": 4, "category": "proof", "categoryName": {"en": "Proof", "zh": "事功"}},
+    {"name": {"en": "Know and Do", "zh": "知行合一"}, "rating": 2, "category": "power", "categoryName": {"en": "Power", "zh": "心炼"}},
+    {"name": {"en": "Self-Disciplined", "zh": "克己守正"}, "rating": 1, "category": "power", "categoryName": {"en": "Power", "zh": "心炼"}},
+    {"name": {"en": "steel in silk", "zh": "外柔内刚"}, "rating": 2, "category": "personality", "categoryName": {"en": "Personality", "zh": "品韵"}},
+    {"name": {"en": "Mindset", "zh": "思想意识"}, "rating": 4, "category": "potential", "categoryName": {"en": "Potential", "zh": "势能"}},
+    {"name": {"en": "Keep Growing", "zh": "持续成长"}, "rating": 5, "category": "potential", "categoryName": {"en": "Potential", "zh": "势能"}}
+  ],
+  "progress": [
+    {"name": {"en": "PDE", "zh": "偏微分方程"}, "categoryName": {"en": "Math", "zh": "数学"}, "level": 0, "category": "math"},
+    {"name": {"en": "Functional Analysis", "zh": "泛函分析"}, "categoryName": {"en": "Math", "zh": "数学"}, "level": 0, "category": "math"},
+    {"name": {"en": "machine learning", "zh": "机器学习"}, "categoryName": {"en": "Machine Learning", "zh": "机器学习"}, "level": 0, "category": "machine learning"},
+    {"name": {"en": "deep learning", "zh": "深度学习"}, "categoryName": {"en": "Machine Learning", "zh": "机器学习"}, "level": 0, "category": "machine learning"}
+  ],
+  "targets": [
+    {
+      "title": { "en": "IELTS", "zh": "雅思" },
+      "type": "main",
+      "status": "active",
+      "progress": 30,
+      "startDate": "2026-01-01",
+      "description": { "en": "IELTS goal: band 7.", "zh": "雅思目标：7分。" }
+    },
+    {
+      "title": { "en": "Article", "zh": "论文" },
+      "type": "main",
+      "status": "active",
+      "progress": 40,
+      "startDate": "2026-02-01",
+      "description": { "en": "Undergrad research: publish an SCI paper.", "zh": "本科科研：发SCI论文。" }
+    }
+  ]
+}
+

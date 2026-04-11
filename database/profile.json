@@ -1,0 +1,64 @@
+{
+  "site": {
+    "title": "Chronicle",
+    "subtitle": {
+      "en": "The meaning of living lies in leaving without regrets",
+      "zh": "活着的意义在于如何不留遗憾地离开"
+    },
+    "lastUpdate": "2026-04-10"
+  },
+  "character": {
+    "name": "杨永豪",
+    "nameEn": "Yonghao Yang",
+    "title": {
+      "en": "A Self-Iterating Holistic Growth Architect",
+      "zh": "一个自我迭代的全面成长建构师"
+    },
+    "level": "LV 20",
+    "avatar": "",
+    "birthday": "2005.07.22",
+    "gender": {
+      "en": "Male",
+      "zh": "男"
+    },
+    "mbti": "ENXP",
+    "bio": {
+      "en": "I see personal growth as a lifelong iterative project — continuously becoming more complete and more powerful through multidimensional exploration and relentless self-improvement.",
+      "zh": "将自我成长视作终身迭代的项目，在多维度探索与持续完善中，不断成为更完整、更强大的自己"
+    },
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/miracle-555",
+        "icon": "⟐",
+        "type": "link"
+      },
+      {
+        "label": "Email",
+        "url": "mailto:13235595638@163.com",
+        "icon": "✉",
+        "type": "link"
+      },
+      {
+        "label": "WeChat",
+        "url": "yyh142857369",
+        "icon": "◈",
+        "type": "text"
+      }
+    ]
+  },
+  "files": [
+    {
+      "name": {
+        "en": "Resume / CV",
+        "zh": "简历"
+      },
+      "description": {
+        "en": "Latest curriculum vitae (PDF)",
+        "zh": "最新个人简历（PDF）"
+      },
+      "url": "database/documents/Yonghao_Yang_CV_202604.pdf",
+      "icon": "📜"
+    }
+  ]
+}
