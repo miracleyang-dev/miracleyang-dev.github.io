@@ -56,8 +56,18 @@ python -m http.server 8000
 
 ## 部署说明
 
-- 推荐使用 GitHub Pages 托管。
-- 自定义域名由根目录 `CNAME` 文件配置。
+推荐使用 GitHub Pages 托管，当前仓库结构可直接部署。
+
+1. 将代码推送到 GitHub 仓库（默认分支建议为 `main`）。
+2. 打开仓库设置：`Settings` -> `Pages`。
+3. 在 `Build and deployment` 中选择：
+   - `Source`: `Deploy from a branch`
+   - `Branch`: `main` + `/ (root)`
+4. 保存后等待部署完成，GitHub 会生成 `*.github.io` 地址。
+5. 若使用自定义域名，保留根目录 `CNAME` 文件（当前为 `miracleyang.com`），并在 DNS 服务商处配置：
+   - 根域名（`@`）添加 `A` 记录到 GitHub Pages 官方 IP
+   - 子域名（如 `www`）添加 `CNAME` 到 `<你的用户名>.github.io`
+6. 在 GitHub Pages 设置里启用 `Enforce HTTPS`（证书生效后）。
 
 ## 技术栈
 
@@ -68,4 +78,4 @@ python -m http.server 8000
 
 ## License
 
-如需开源发布，可按你的需求补充许可证（如 MIT）。
+本项目采用 [MIT License](LICENSE)。

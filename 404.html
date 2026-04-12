@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 | Chronicle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:wght@400;600&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f13;
+      --panel: #181a20;
+      --text: #f0eadf;
+      --muted: #c4bba9;
+      --line: #9f8a5a;
+      --accent: #d9be7a;
+      --accent-hover: #f1d89c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(217, 190, 122, 0.08), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(159, 138, 90, 0.1), transparent 45%),
+        linear-gradient(165deg, #0e0f14 0%, #14161d 45%, #101219 100%);
+      color: var(--text);
+      font-family: "Noto Serif SC", "Crimson Text", serif;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(680px, 100%);
+      background: linear-gradient(180deg, rgba(24, 26, 32, 0.96), rgba(20, 22, 29, 0.96));
+      border: 1px solid rgba(159, 138, 90, 0.4);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      transform: translateY(-90px);
+    }
+
+    .code {
+      margin: 0;
+      font-family: "Cinzel", serif;
+      font-size: clamp(48px, 10vw, 84px);
+      line-height: 1;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      font-family: "Cinzel", serif;
+      font-size: clamp(26px, 5vw, 34px);
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 auto;
+      max-width: 46ch;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .ornament {
+      width: min(320px, 80%);
+      margin: 22px auto;
+      border: 0;
+      border-top: 1px solid rgba(159, 138, 90, 0.45);
+    }
+
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent-hover);
+      color: var(--accent-hover);
+    }
+
+    .btn.primary {
+      background: rgba(217, 190, 122, 0.12);
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="title">
+    <p class="code">404</p>
+    <h1 id="title">页面未找到</h1>
+    <p>
+      你访问的路径不存在，可能已被移动或链接已失效。
+      The page you requested could not be found.
+    </p>
+    <hr class="ornament">
+    <div class="actions">
+      <a class="btn primary" href="/">返回主页</a>
+      <a class="btn" href="https://miracleyang.com">访问主域名</a>
+    </div>
+  </main>
+</body>
+</html>
