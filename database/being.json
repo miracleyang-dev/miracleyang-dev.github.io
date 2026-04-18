@@ -1,5 +1,24 @@
 ﻿{
-  "essays": [],
+  "essays": [
+    {
+      "date": "2026-04-18",
+      "tags": [
+        { "en": "Growth", "zh": "成长" }
+      ],
+      "title": {
+        "en": "How I Become Better and Stronger",
+        "zh": "如何让自己变得越来越厉害"
+      },
+      "summary": {
+        "en": "In my view, these are six core principles that help a person keep growing, becoming rational, independent, and steadily stronger.",
+        "zh": "在我看来让人持续变强、清醒独立、稳步向上的六条核心原则。"
+      },
+      "content": {
+        "en": "1. Do not be confined by grand narratives; keep your own agency.\n\n2. Believe that everything that happens can benefit me, and everything can be used by me.\n\n3. Respect statistical patterns, while at the same time firmly believing I am unique.\n\n4. Keep moving forward in environments with no feedback and even negative feedback, and calmly accept life's uncertainty.\n\n5. Consciously control my input.\n\n6. Be able to understand the negation of negation, so I can keep renewing, revising, and growing.\n\nThese are, in my view, indispensable things for a person to gradually become stronger. I will elaborate on each point when I have time.",
+        "zh": "1. 不被宏大叙事束缚，守住自我主体性。\n\n2. 相信凡是发生皆有利于我，万物皆可为我所用。\n\n3. 尊重统计规律，同时又坚信自己与众不同。\n\n4. 能够在无反馈乃至负反馈的环境里前行，坦然接受人生的不确定性。\n\n5. 有意识控制自己的输入。\n\n6. 能理解否定之否定，可以持续自我更新、修正与成长。\n\n以上就是在我看来一个人慢慢变厉害必不可少的东西，后面有空会逐条详细说说。"
+      }
+    }
+  ],
   "lists": [
     {
       "title": { "en": "Collect 100 Romantic Quotes", "zh": "收藏100句浪漫名言" },
