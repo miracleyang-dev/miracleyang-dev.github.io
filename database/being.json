@@ -2,6 +2,33 @@
   "essays": [],
   "lists": [
     {
+      "title": { "en": "Collect 100 Romantic Quotes", "zh": "收藏100句浪漫名言" },
+      "count": 100,
+      "progress": 4,
+      "items": [
+        "All's fair in love and war.",
+        "Some of us get dipped in flat, some in satin, some in gloss. But every once in a while you find someone who's iridescent, and when you do, nothing will ever compare. -- Flipped",
+        "The real death is that no one in the world remembers you. -- Coco",
+        "If you shed tears when you miss the sun, you also miss the stars. -- Stray Birds"
+      ]
+    },
+    {
+      "title": { "en": "Discover 100 Hidden Gem Songs", "zh": "发现100首宝藏歌曲" },
+      "count": 100,
+      "progress": 9,
+      "items": [
+        "《在你的身边》 -- 盛哲",
+        "《身骑白马》 -- 徐佳莹",
+        "《我记得》 -- 赵雷",
+        "《无名的人》 -- 毛不易",
+        "《落花成泥》 -- 鞠婧祎",
+        "《转身即心痛》 -- 吉星出租",
+        "《如愿》 -- 王菲",
+        "《妈妈的话》 -- Zyboy忠宇",
+        "《错位时空》 -- 艾辰"
+      ]
+    },
+    {
       "title": { "en": "Memorize 100 Chinese Classical Poems and Prose Pieces", "zh": "背诵100篇中国古诗文" },
       "count": 100,
       "progress": 3,
@@ -9,16 +36,6 @@
         "《生于忧患，死于安乐》 -- 孟子",
         "《富贵不能淫》 -- 孟子",
         "《春江花月夜》 -- 张若虚"
-      ]
-    },
-    {
-      "title": { "en": "Discover 100 Hidden Gem Songs", "zh": "发现100首宝藏歌曲" },
-      "count": 100,
-      "progress": 3,
-      "items": [
-        "《在你的身边》 -- 盛哲",
-        "《身骑白马》 -- 徐佳莹",
-        "《我记得》 -- 赵雷"
       ]
     }
   ],

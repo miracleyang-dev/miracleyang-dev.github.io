@@ -9,6 +9,7 @@ var SITE_DATA = {
   files: [],
   progress: [],
   targets: [],
+  repos: [],
   essays: [],
   lists: [],
   records: []
@@ -40,6 +41,7 @@ const UI_TEXT = {
   subStats: { en: "Stats", zh: "属性" },
   subProgress: { en: "Progress", zh: "进度" },
   subQuestLog: { en: "Quest Log", zh: "任务日志" },
+  subCodex: { en: "Codex", zh: "典籍" },
   subEssays: { en: "Essays", zh: "随笔" },
   subLists: { en: "Lists", zh: "清单" },
   subRecords: { en: "records", zh: "札记" },
@@ -48,6 +50,7 @@ const UI_TEXT = {
   sectionStats: { en: "Stats", zh: "属性" },
   sectionProgress: { en: "Progress", zh: "进度" },
   sectionQuestLog: { en: "Quest Log", zh: "任务日志" },
+  sectionCodex: { en: "Codex", zh: "典籍" },
   sectionEssays: { en: "Essays", zh: "随笔" },
   sectionLists: { en: "Lists", zh: "清单" },
   sectionRecords: { en: "records", zh: "札记" },
@@ -126,6 +129,7 @@ const UI_TEXT = {
       { id: 'vocation', label: UI_TEXT.tabVocation, subs: [
         { id: 'stats', label: UI_TEXT.subStats },
         { id: 'progress', label: UI_TEXT.subProgress },
+        { id: 'codex', label: UI_TEXT.subCodex },
         { id: 'quest-log', label: UI_TEXT.subQuestLog }
       ]},
       { id: 'being', label: UI_TEXT.tabBeing, subs: [
@@ -215,12 +219,16 @@ const UI_TEXT = {
     if (showAll || currentSubTab === 'progress') {
       panel.innerHTML += '<div id="progressSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionProgress) + '<div class="skills-grid" id="progressGrid"></div></div>';
     }
+    if (showAll || currentSubTab === 'codex') {
+      panel.innerHTML += '<div id="codexSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionCodex) + '<div class="codex-grid" id="codexGrid"></div></div>';
+    }
     if (showAll || currentSubTab === 'quest-log') {
       panel.innerHTML += '<div id="questLogSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionQuestLog) + '<div class="targets-list" id="targetsList"></div></div>';
     }
 
     if (document.getElementById('statsGrid')) renderStats();
     if (document.getElementById('progressGrid')) renderProgress();
+    if (document.getElementById('codexGrid')) renderCodex();
     if (document.getElementById('targetsList')) renderQuestLog();
   }
 
@@ -337,6 +345,38 @@ const UI_TEXT = {
         });
       }, 200);
     });
+  }
+
+  // ---- Render codex (GitHub repos) ----
+  var LANG_COLORS = {
+    'JavaScript': '#f1e05a', 'TypeScript': '#3178c6', 'Python': '#3572A5',
+    'Rust': '#dea584', 'Go': '#00ADD8', 'C++': '#f34b7d', 'C': '#555555',
+    'Java': '#b07219', 'HTML': '#e34c26', 'CSS': '#563d7c', 'Shell': '#89e051',
+    'Ruby': '#701516', 'Swift': '#F05138', 'Kotlin': '#A97BFF', 'Dart': '#00B4AB',
+    'Lua': '#000080', 'Vue': '#41b883', 'Svelte': '#ff3e00'
+  };
+
+  function renderCodex() {
+    var repos = (SITE_DATA.repos || []).filter(function(r) { return r.featured; }).slice(0, 20);
+
+    var html = repos.map(function(repo) {
+      var langColor = LANG_COLORS[repo.language] || '#8a7e6e';
+      return '<a href="' + repo.url + '" class="codex-card" target="_blank" rel="noopener">' +
+        '<div class="codex-header">' +
+          '<span class="codex-icon">\u{1F4DC}</span>' +
+          '<span class="codex-name">' + repo.name + '</span>' +
+        '</div>' +
+        '<div class="codex-desc">' + t(repo.description) + '</div>' +
+        '<div class="codex-footer">' +
+          '<span class="codex-lang">' +
+            '<span class="codex-lang-dot" style="background:' + langColor + '"></span>' +
+            repo.language +
+          '</span>' +
+        '</div>' +
+      '</a>';
+    }).join('');
+
+    document.getElementById('codexGrid').innerHTML = html;
   }
 
   // ---- Render files ----
@@ -584,6 +624,3 @@ const UI_TEXT = {
     });
 
 })();
-
-
-

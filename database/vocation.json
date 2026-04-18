@@ -15,6 +15,50 @@
     {"name": {"en": "machine learning", "zh": "机器学习"}, "categoryName": {"en": "Machine Learning", "zh": "机器学习"}, "level": 0, "category": "machine learning"},
     {"name": {"en": "deep learning", "zh": "深度学习"}, "categoryName": {"en": "Machine Learning", "zh": "机器学习"}, "level": 0, "category": "machine learning"}
   ],
+  "repos": [
+    {
+      "name": "miracleyang-dev.github.io",
+      "description": { "en": "This is the code that brings miracleyang.com to life — a personal space for my blog.", "zh": "这是让 miracleyang.com 运行起来的代码，也是我的博客个人空间。" },
+      "language": "CSS",
+      "url": "https://github.com/miracleyang-dev/miracleyang-dev.github.io",
+      "featured": true
+    },
+    {
+      "name": "basic-algorithms",
+      "description": { "en": "Primarily written in C++, these are common intermediate-to-advanced algorithms for self-practice.", "zh": "这些内容主要用 C++ 编写，收录了常见的中高级算法用于自我练习。" },
+      "language": "C++",
+      "url": "https://github.com/miracleyang-dev/basic-algorithms",
+      "featured": true
+    },
+    {
+      "name": "bomb-cat-game",
+      "description": { "en": "A simple strategy game about using cards to battle monsters.", "zh": "一个简单的策略游戏，围绕用卡牌与怪物战斗展开。" },
+      "language": "Python",
+      "url": "https://github.com/miracleyang-dev/bomb-cat-game",
+      "featured": true
+    },
+    {
+      "name": "numerical-solutions",
+      "description": { "en": "Classic problems and solutions in numerical linear algebra for a computational mathematics course.", "zh": "面向计算数学课程的数值线性代数经典问题与解答。" },
+      "language": "TeX",
+      "url": "https://github.com/miracleyang-dev/numerical-solutions",
+      "featured": true
+    },
+    {
+      "name": "flow-focus-system",
+      "description": { "en": "A minimalist personal productivity system for achieving deep focus.", "zh": "一个用于实现深度专注的极简个人效率系统。" },
+      "language": "JavaScript",
+      "url": "https://github.com/miracleyang-dev/flow-focus-system",
+      "featured": true
+    },
+    {
+      "name": "resume-source",
+      "description": { "en": "Source code for my personal resume, used to generate PDF version.", "zh": "我的个人简历源代码，用于生成 PDF 版本。" },
+      "language": "HTML",
+      "url": "https://github.com/miracleyang-dev/resume-source",
+      "featured": true
+    }
+  ],
   "targets": [
     {
       "title": { "en": "IELTS", "zh": "雅思" },
