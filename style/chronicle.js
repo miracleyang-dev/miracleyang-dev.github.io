@@ -582,6 +582,26 @@ const UI_TEXT = {
   });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') {
+      document.getElementById('subscribeDropdown').classList.remove('open');
+    }
+  });
+
+  // ---- Subscribe toggle ----
+  var subToggle = document.getElementById('subscribeToggle');
+  var subDropdown = document.getElementById('subscribeDropdown');
+
+  subToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    subDropdown.classList.toggle('open');
+  });
+
+  subDropdown.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  document.addEventListener('click', function() {
+    subDropdown.classList.remove('open');
   });
 
   // ---- Theme toggle ----
