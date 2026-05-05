@@ -83,12 +83,12 @@
       "description": { "en": "Undergrad research: publish an SCI paper.", "zh": "本科科研：发SCI论文。" }
     },
     {
-      "title": { "en": "National Scholarship", "zh": "国奖" },
+      "title": { "en": "Scholarship", "zh": "国奖" },
       "type": "main",
       "status": "completed",
       "progress": 100,
       "startDate": "2025-09-01",
-      "description": { "en": "National Scholarship (国家奖学金).", "zh": "国家奖学金。" }
+      "description": { "en": "National Scholarship.", "zh": "国家奖学金。" }
     }
   ]
 }
