@@ -648,48 +648,6 @@ a:hover { color: var(--text-primary); }
   font-family: var(--font-mono);
 }
 
-/* === SUBSCRIBE TOGGLE === */
-.subscribe-toggle {
-  position: fixed; top: 20px; right: 128px; z-index: 1000;
-  width: 44px; height: 44px;
-  background: var(--bg-panel); border: 1px solid var(--border-main);
-  color: var(--text-muted); font-size: 1.1rem;
-  cursor: pointer; transition: all 0.3s;
-  display: flex; align-items: center; justify-content: center;
-}
-.subscribe-toggle:hover { border-color: var(--border-accent); color: var(--accent-gold); }
-
-.subscribe-dropdown {
-  display: none;
-  position: fixed; top: 72px; right: 20px; z-index: 1001;
-  width: 340px;
-  background: var(--bg-panel); border: 1px solid var(--border-main);
-  box-shadow: var(--shadow-panel);
-  padding: 20px;
-}
-.subscribe-dropdown.open { display: block; animation: fadeIn 0.2s ease; }
-
-.subscribe-heading {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 8px;
-}
-
-.subscribe-title {
-  font-family: var(--font-display);
-  font-size: 0.8rem; font-weight: 600;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--accent-gold);
-}
-
-.subscribe-desc {
-  font-size: 0.82rem; color: var(--text-muted);
-  margin-bottom: 12px; font-style: italic;
-}
-
-.subscribe-form-wrap {
-  max-width: 100%;
-}
-
 /* === FOOTER === */
 .site-footer {
   text-align: center; padding: 30px 20px;
@@ -839,12 +797,9 @@ a:hover { color: var(--text-primary); }
   .header-ornament .line { width: 50px; }
 
   /* -- Toggle buttons -- */
-  .theme-toggle, .lang-toggle, .subscribe-toggle { width: 36px; height: 36px; top: 14px; }
-  .theme-toggle { right: 14px; font-size: 1rem; }
-  .lang-toggle { right: 58px; padding: 0 8px; font-size: 0.68rem; width: auto; }
-  .subscribe-toggle { right: 104px; font-size: 0.95rem; }
-  .subscribe-dropdown { top: 58px; right: 14px; width: calc(100vw - 28px); max-width: 340px; }
-
+  .theme-toggle, .lang-toggle { width: 36px; height: 36px; top: 14px; }
+  .theme-toggle { right: 54px; font-size: 1rem; }
+  .lang-toggle { right: 98px; padding: 0 8px; font-size: 0.68rem; width: auto; }
   /* -- Tab navigation: clean horizontal main tabs + sub-tab row -- */
   .tab-navigation {
     flex-direction: row; flex-wrap: wrap;

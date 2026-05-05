@@ -68,8 +68,6 @@ const UI_TEXT = {
   severityHigh: { en: "high", zh: "高" },
   severityMedium: { en: "medium", zh: "中" },
   severityLow: { en: "low", zh: "低" },
-  subscribeTitle: { en: "Subscribe", zh: "订阅" },
-  subscribeDesc: { en: "Get notified when new content is published.", zh: "新内容发布时收到邮件提醒。" }
 };
 
 
@@ -258,10 +256,6 @@ const UI_TEXT = {
     document.getElementById('siteSubtitle').textContent = t(SITE_DATA.site.subtitle);
     document.getElementById('footerText').textContent = t(UI_TEXT.footerUpdate) + SITE_DATA.site.lastUpdate;
     document.title = t(SITE_DATA.site.title);
-    var subTitle = document.getElementById('subscribeTitle');
-    var subDesc = document.getElementById('subscribeDesc');
-    if (subTitle) subTitle.textContent = t(UI_TEXT.subscribeTitle);
-    if (subDesc) subDesc.textContent = t(UI_TEXT.subscribeDesc);
   }
 
   // ---- Render profile ----
@@ -581,27 +575,9 @@ const UI_TEXT = {
     if (e.target === e.currentTarget) closeModal();
   });
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
     if (e.key === 'Escape') {
-      document.getElementById('subscribeDropdown').classList.remove('open');
+      closeModal();
     }
-  });
-
-  // ---- Subscribe toggle ----
-  var subToggle = document.getElementById('subscribeToggle');
-  var subDropdown = document.getElementById('subscribeDropdown');
-
-  subToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    subDropdown.classList.toggle('open');
-  });
-
-  subDropdown.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
-
-  document.addEventListener('click', function() {
-    subDropdown.classList.remove('open');
   });
 
   // ---- Theme toggle ----
