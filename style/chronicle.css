@@ -648,6 +648,36 @@ a:hover { color: var(--text-primary); }
   font-family: var(--font-mono);
 }
 
+/* === SUBSCRIBE === */
+.subscribe-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 28px;
+  text-align: center;
+}
+
+.subscribe-heading {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-bottom: 10px;
+}
+
+.subscribe-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.subscribe-desc {
+  font-size: 0.88rem; color: var(--text-muted);
+  margin-bottom: 16px; font-style: italic;
+}
+
+.subscribe-form-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 /* === FOOTER === */
 .site-footer {
   text-align: center; padding: 30px 20px;
@@ -699,6 +729,50 @@ a:hover { color: var(--text-primary); }
   border-top: 1px solid var(--border-main);
   display: flex; gap: 6px; flex-wrap: wrap;
 }
+
+/* === ACHIEVEMENTS === */
+.achievements-list { display: flex; flex-direction: column; gap: 16px; }
+
+.achievement-card {
+  position: relative; padding: 18px 20px; background: var(--bg-card);
+  border: 1px solid var(--border-main); transition: all 0.2s;
+}
+.achievement-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+
+.achievement-phase-badge {
+  position: absolute; top: 8px; right: 8px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 3px 8px; border: 1px solid; letter-spacing: 0.05em;
+  white-space: nowrap; background: var(--bg-panel);
+  color: var(--accent-gold); border-color: var(--accent-gold-dim);
+}
+
+.achievement-rank-badge {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 2px 8px; border: 1px solid; letter-spacing: 0.05em; white-space: nowrap;
+  text-transform: uppercase; flex-shrink: 0;
+}
+.achievement-rank-badge.s { color: var(--accent-warm); border-color: var(--accent-warm); }
+.achievement-rank-badge.a { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
+
+.achievement-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+
+.achievement-title {
+  font-family: var(--font-display); font-size: 1rem;
+  font-weight: 600; color: var(--text-primary);
+}
+
+.achievement-desc {
+  font-size: 0.9rem; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 12px;
+}
+
+.achievement-footer {
+  font-size: 0.8rem; color: var(--text-muted);
+  text-align: right;
+}
+
+.achievement-date { font-family: var(--font-mono); }
 
 /* Section separator for combined views */
 .section-separator { margin-top: 36px; }
@@ -888,6 +962,12 @@ a:hover { color: var(--text-primary); }
   .record-card { padding: 14px 14px; }
   .record-title { font-size: 0.92rem; }
   .record-type { font-size: 0.6rem; }
+
+  /* -- Achievements -- */
+  .achievement-card { padding: 14px 14px; }
+  .achievement-title { font-size: 0.92rem; }
+  .achievement-phase-badge { font-size: 0.6rem; padding: 2px 6px; }
+  .achievement-rank-badge { font-size: 0.6rem; padding: 2px 6px; }
 
   /* -- Blocks/struggles -- */
   .block-card { padding: 14px 14px; }

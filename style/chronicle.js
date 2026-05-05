@@ -12,7 +12,7 @@ var SITE_DATA = {
   repos: [],
   essays: [],
   lists: [],
-  records: []
+  achievements: []
 };
 
 function loadSiteData() {
@@ -43,8 +43,8 @@ const UI_TEXT = {
   subQuestLog: { en: "Quest Log", zh: "任务日志" },
   subCodex: { en: "Codex", zh: "典籍" },
   subEssays: { en: "Essays", zh: "随笔" },
-  subLists: { en: "Lists", zh: "清单" },
-  subRecords: { en: "records", zh: "札记" },
+  subAchievements: { en: "Achievements", zh: "成就" },
+  subRecords: { en: "Records", zh: "札记" },
   sectionCharacter: { en: "Character", zh: "角色" },
   sectionDocuments: { en: "Documents", zh: "文档" },
   sectionStats: { en: "Stats", zh: "属性" },
@@ -52,8 +52,8 @@ const UI_TEXT = {
   sectionQuestLog: { en: "Quest Log", zh: "任务日志" },
   sectionCodex: { en: "Codex", zh: "典籍" },
   sectionEssays: { en: "Essays", zh: "随笔" },
-  sectionLists: { en: "Lists", zh: "清单" },
-  sectionRecords: { en: "records", zh: "札记" },
+  sectionAchievements: { en: "Achievements", zh: "成就" },
+  sectionRecords: { en: "Records", zh: "札记" },
   statusActive: { en: "active", zh: "进行中" },
   statusPending: { en: "pending", zh: "未" },
   statusCompleted: { en: "completed", zh: "已完成" },
@@ -67,7 +67,9 @@ const UI_TEXT = {
   footerUpdate: { en: "Last updated: ", zh: "最近更新：" },
   severityHigh: { en: "high", zh: "高" },
   severityMedium: { en: "medium", zh: "中" },
-  severityLow: { en: "low", zh: "低" }
+  severityLow: { en: "low", zh: "低" },
+  subscribeTitle: { en: "Subscribe", zh: "订阅" },
+  subscribeDesc: { en: "Get notified when new content is published.", zh: "新内容发布时收到邮件提醒。" }
 };
 
 
@@ -134,8 +136,8 @@ const UI_TEXT = {
       ]},
       { id: 'being', label: UI_TEXT.tabBeing, subs: [
         { id: 'essays', label: UI_TEXT.subEssays },
-        { id: 'lists', label: UI_TEXT.subLists },
-        { id: 'records', label: UI_TEXT.subRecords }
+        { id: 'records', label: UI_TEXT.subRecords },
+        { id: 'achievements', label: UI_TEXT.subAchievements }
       ]}
     ];
 
@@ -238,16 +240,16 @@ const UI_TEXT = {
     if (showAll || currentSubTab === 'essays') {
       panel.innerHTML += '<div id="essaysSection">' + sectionHeading(UI_TEXT.sectionEssays) + '<div class="posts-list" id="postsList"></div></div>';
     }
-    if (showAll || currentSubTab === 'lists') {
-      panel.innerHTML += '<div id="listsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionLists) + '<div class="lists-list" id="listsList"></div></div>';
-    }
     if (showAll || currentSubTab === 'records') {
-      panel.innerHTML += '<div id="recordsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionRecords) + '<div class="records-list" id="recordsList"></div></div>';
+      panel.innerHTML += '<div id="recordsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionRecords) + '<div class="lists-list" id="listsList"></div></div>';
+    }
+    if (showAll || currentSubTab === 'achievements') {
+      panel.innerHTML += '<div id="achievementsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionAchievements) + '<div class="achievements-list" id="achievementsList"></div></div>';
     }
 
     if (document.getElementById('postsList')) renderEssays();
     if (document.getElementById('listsList')) renderLists();
-    if (document.getElementById('recordsList')) renderRecords();
+    if (document.getElementById('achievementsList')) renderAchievements();
   }
 
   // ---- Render header ----
@@ -256,6 +258,10 @@ const UI_TEXT = {
     document.getElementById('siteSubtitle').textContent = t(SITE_DATA.site.subtitle);
     document.getElementById('footerText').textContent = t(UI_TEXT.footerUpdate) + SITE_DATA.site.lastUpdate;
     document.title = t(SITE_DATA.site.title);
+    var subTitle = document.getElementById('subscribeTitle');
+    var subDesc = document.getElementById('subscribeDesc');
+    if (subTitle) subTitle.textContent = t(UI_TEXT.subscribeTitle);
+    if (subDesc) subDesc.textContent = t(UI_TEXT.subscribeDesc);
   }
 
   // ---- Render profile ----
@@ -413,16 +419,21 @@ const UI_TEXT = {
   function renderLists() {
     var html = SITE_DATA.lists.map(function(l, i) {
       var progressHTML = '';
-      if (l.progress != null && l.count) {
+      if (l.count) {
+        var actual = l.progress != null ? l.progress : 0;
+        var reached = actual >= l.count;
+        var displayProgress = reached ? l.count : actual;
+        var pct = reached ? 100 : Math.round(actual / l.count * 100);
         progressHTML = '<div class="list-progress">' +
-          '<div class="list-progress-label">' + l.progress + ' / ' + l.count + '</div>' +
-          '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + Math.round(l.progress / l.count * 100) + '"></div></div>' +
+          '<div class="list-progress-label">' + displayProgress + ' / ' + l.count + '</div>' +
+          '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + pct + '"></div></div>' +
         '</div>';
       }
+      var countDisplay = (l.progress != null ? l.progress : 0) + '/' + l.count;
       return '<div class="list-card" data-list="' + i + '">' +
         '<div class="list-header">' +
           '<span class="list-title">' + t(l.title) + '</span>' +
-          '<span class="list-count">' + (l.progress != null ? l.progress + '/' : '') + l.count + '</span>' +
+          '<span class="list-count">' + countDisplay + '</span>' +
         '</div>' +
         progressHTML +
       '</div>';
@@ -445,30 +456,26 @@ const UI_TEXT = {
     });
   }
 
-  // ---- Render records ----
-  function renderRecords() {
-    var sorted = SITE_DATA.records.slice().sort(function(a, b) { return b.date.localeCompare(a.date); });
-    var html = sorted.map(function(r, i) {
-      return '<div class="record-card" data-record="' + i + '">' +
-        '<div class="record-header">' +
-          '<span class="record-type">' + t(r.type) + '</span>' +
-          '<span class="record-title">' + t(r.title) + '</span>' +
+  // ---- Render achievements ----
+  function renderAchievements() {
+    var html = (SITE_DATA.achievements || []).slice().sort(function(a, b) {
+      return (b.date || '').localeCompare(a.date || '');
+    }).map(function(ach) {
+      var descHTML = ach.description ? '<div class="achievement-desc">' + t(ach.description) + '</div>' : '';
+      return '<div class="achievement-card rank-' + ach.rank.toLowerCase() + '">' +
+        '<div class="achievement-phase-badge">' + t(UI_TEXT.statusCompleted) + '</div>' +
+        '<div class="achievement-header">' +
+          '<span class="achievement-rank-badge ' + ach.rank.toLowerCase() + '">' + ach.rank + '</span>' +
+          '<span class="achievement-title">' + t(ach.title) + '</span>' +
         '</div>' +
-        '<div class="record-meta">' +
-          '<span class="record-date">' + r.date + '</span>' +
-          starHTML(r.rating) +
+        descHTML +
+        '<div class="achievement-footer">' +
+          '<span class="achievement-date">' + (ach.date || '') + '</span>' +
         '</div>' +
-        '<div class="record-note">' + t(r.note) + '</div>' +
       '</div>';
     }).join('');
 
-    document.getElementById('recordsList').innerHTML = html;
-
-    document.querySelectorAll('.record-card').forEach(function(card) {
-      card.addEventListener('click', function() {
-        card.classList.toggle('expanded');
-      });
-    });
+    document.getElementById('achievementsList').innerHTML = html;
   }
 
   // ---- Render targets ----
@@ -522,12 +529,14 @@ const UI_TEXT = {
     if (!list || !list.items || list.items.length === 0) return;
 
     document.getElementById('modalTitle').textContent = t(list.title);
-    document.getElementById('modalMeta').textContent =
-      (list.progress != null ? list.progress + ' / ' : '') + list.count;
+    var actual = list.progress != null ? list.progress : 0;
+    var reached = actual >= list.count;
+    var displayProgress = reached ? list.count : actual;
+    document.getElementById('modalMeta').textContent = displayProgress + ' / ' + list.count;
 
     var bodyHTML = '<ol class="list-modal-items">';
     list.items.forEach(function(item, i) {
-      var done = list.progress != null && i < list.progress;
+      var done = reached || i < actual;
       bodyHTML += '<li class="list-modal-item' + (done ? ' done' : '') + '">' +
         '<span class="list-item-num">' + (i + 1) + '</span>' +
         '<span class="list-item-text">' + t(item) + '</span>' +

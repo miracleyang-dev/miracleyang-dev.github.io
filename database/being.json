@@ -58,13 +58,12 @@
       ]
     }
   ],
-  "records": [
+  "achievements": [
     {
-      "date": "2026-03-31",
-      "type": { "en": "Movie", "zh": "电影" },
-      "title": { "en": "The Rescue Plan", "zh": "拯救计划" },
-      "note": { "en": "A mindless sci-fi film with a strong humanistic tone.", "zh": "带有强烈人文色彩的无脑科幻片。" },
-      "rating": 4
+      "title": { "en": "985 Undergraduate", "zh": "985本科" },
+      "description": { "en": "School of Mathematics, WHU", "zh": "武大数院" },
+      "rank": "A",
+      "date": "2025-09"
     }
   ]
 }

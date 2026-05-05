@@ -2,7 +2,6 @@
   "stats": [
     {"name": {"en": "Tidy", "zh": "干净"}, "rating": 4, "category": "presence", "categoryName": {"en": "Presence", "zh": "形格"}},
     {"name": {"en": "Make Money", "zh": "搞钱"}, "rating": 2, "category": "proof", "categoryName": {"en": "Proof", "zh": "事功"}},
-    {"name": {"en": "Be Better", "zh": "精益求精"}, "rating": 4, "category": "proof", "categoryName": {"en": "Proof", "zh": "事功"}},
     {"name": {"en": "Know and Do", "zh": "知行合一"}, "rating": 2, "category": "power", "categoryName": {"en": "Power", "zh": "心炼"}},
     {"name": {"en": "Self-Disciplined", "zh": "克己守正"}, "rating": 1, "category": "power", "categoryName": {"en": "Power", "zh": "心炼"}},
     {"name": {"en": "steel in silk", "zh": "外柔内刚"}, "rating": 2, "category": "personality", "categoryName": {"en": "Personality", "zh": "品韵"}},
@@ -75,6 +74,14 @@
       "progress": 30,
       "startDate": "2026-02-01",
       "description": { "en": "Undergrad research: publish an SCI paper.", "zh": "本科科研：发SCI论文。" }
+    },
+    {
+      "title": { "en": "National Scholarship", "zh": "国奖" },
+      "type": "main",
+      "status": "completed",
+      "progress": 100,
+      "startDate": "2025-09-01",
+      "description": { "en": "National Scholarship (国家奖学金).", "zh": "国家奖学金。" }
     }
   ]
 }
