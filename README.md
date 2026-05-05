@@ -20,6 +20,7 @@
 ```text
 .
 ├─ index.html                # 页面入口
+├─ 404.html                  # 404 页面
 ├─ CNAME                     # GitHub Pages 自定义域名
 ├─ style/
 │  ├─ chronicle.css          # 样式文件
@@ -27,7 +28,7 @@
 └─ database/
    ├─ profile.json           # 站点与个人信息、文档链接
    ├─ vocation.json          # 属性、进度、目标
-   ├─ being.json             # 随笔、清单、记录
+   ├─ being.json             # 随笔、记录、成就
    └─ documents/             # 附件（如简历 PDF）
 ```
 
@@ -43,6 +44,7 @@ npx serve .
 
 # 方式 2：Python
 python -m http.server 8000
+py -m http.server 8000
 ```
 
 然后在浏览器访问对应地址（如 <http://localhost:8000>）。
@@ -51,7 +53,7 @@ python -m http.server 8000
 
 1. 修改 `database/profile.json`：站点标题、副标题、个人信息、外链、简历链接等。
 2. 修改 `database/vocation.json`：属性评分、能力进度、任务目标。
-3. 修改 `database/being.json`：随笔、清单与生活记录。
+3. 修改 `database/being.json`：随笔、记录与成就。
 4. 若更新简历等附件，请将文件放到 `database/documents/` 并同步更新 JSON 中的路径。
 
 ## 部署说明
