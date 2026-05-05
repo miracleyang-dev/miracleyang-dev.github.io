@@ -56,6 +56,13 @@
       "language": "HTML",
       "url": "https://github.com/miracleyang-dev/resume-source",
       "featured": true
+    },
+    {
+      "name": "romance-journey",
+      "description": { "en": "A romantic journal app that captures couples' milestones, dates, and shared memories in one warm, story-like timeline.", "zh": "一款浪漫的日记应用，可以把情侣的节点、约会和共同记忆收进一条温暖、故事感的时间线。" },
+      "language": "JavaScript",
+      "url": "https://github.com/miracleyang-dev/romance-journey",
+      "featured": true
     }
   ],
   "targets": [
@@ -71,7 +78,7 @@
       "title": { "en": "Article", "zh": "论文" },
       "type": "main",
       "status": "active",
-      "progress": 30,
+      "progress": 70,
       "startDate": "2026-02-01",
       "description": { "en": "Undergrad research: publish an SCI paper.", "zh": "本科科研：发SCI论文。" }
     },

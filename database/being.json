@@ -10,31 +10,37 @@
         "zh": "如何让自己变得越来越厉害"
       },
       "summary": {
-        "en": "In my view, these are six core principles that help a person keep growing, becoming rational, independent, and steadily stronger.",
-        "zh": "在我看来让人持续变强、清醒独立、稳步向上的六条核心原则。"
+        "en": "In my view, these are seven core principles that help a person keep growing, becoming rational, independent, and steadily stronger.",
+        "zh": "在我看来让人持续变强、清醒独立、稳步向上的七条核心原则。"
       },
       "content": {
-        "en": "1. Do not be confined by grand narratives; keep your own agency.\n\n2. Believe that everything that happens can benefit me, and everything can be used by me.\n\n3. Respect statistical patterns, while at the same time firmly believing I am unique.\n\n4. Keep moving forward in environments with no feedback and even negative feedback, and calmly accept life's uncertainty.\n\n5. Consciously control my input.\n\n6. Be able to understand the negation of negation, so I can keep renewing, revising, and growing.\n\nThese are, in my view, indispensable things for a person to gradually become stronger. I will elaborate on each point when I have time.",
-        "zh": "1. 不被宏大叙事束缚，守住自我主体性。\n\n2. 相信凡是发生皆有利于我，万物皆可为我所用。\n\n3. 尊重统计规律，同时又坚信自己与众不同。\n\n4. 能够在无反馈乃至负反馈的环境里前行，坦然接受人生的不确定性。\n\n5. 有意识控制自己的输入。\n\n6. 能理解否定之否定，可以持续自我更新、修正与成长。\n\n以上就是在我看来一个人慢慢变厉害必不可少的东西，后面有空会逐条详细说说。"
+        "en": "1. Do not be confined by grand narratives; keep your own agency.\n\n2. Believe that everything that happens can benefit me, and everything can be used by me.\n\n3. Respect statistical patterns, while at the same time firmly believing I am unique.\n\n4. Keep moving forward in environments with no feedback and even negative feedback, and calmly accept life's uncertainty.\n\n5. Consciously control my input.\n\n6. Become anyone you need to be, and bear all due costs willingly.\n\n7. Be able to understand the negation of negation, so I can keep renewing, revising, and growing.\n\nThese are, in my view, indispensable things for a person to gradually become stronger. I will elaborate on each point when I have time.",
+        "zh": "1. 不被宏大叙事束缚，守住自我主体性。\n\n2. 相信凡是发生皆有利于我，万物皆可为我所用。\n\n3. 尊重统计规律，同时又坚信自己与众不同。\n\n4. 能够在无反馈乃至负反馈的环境里前行，坦然接受人生的不确定性。\n\n5. 有意识控制自己的输入。\n\n6. 可以成为任何人，并且愿意承担所有应当承担的代价。\n\n7. 能理解否定之否定，可以持续自我更新、修正与成长。\n\n以上就是在我看来一个人慢慢变厉害必不可少的东西，后面有空会逐条详细说说。"
       }
     }
   ],
-  "lists": [
+  "records": [
     {
       "title": { "en": "Collect 100 Romantic Quotes", "zh": "收藏100句浪漫名言" },
       "count": 100,
-      "progress": 4,
+      "progress": 10,
       "items": [
         "All's fair in love and war.",
         "Some of us get dipped in flat, some in satin, some in gloss. But every once in a while you find someone who's iridescent, and when you do, nothing will ever compare. -- Flipped",
         "The real death is that no one in the world remembers you. -- Coco",
-        "If you shed tears when you miss the sun, you also miss the stars. -- Stray Birds"
+        "If you shed tears when you miss the sun, you also miss the stars. -- Stray Birds",
+        "山有木兮木有枝，心悦君兮君不知。——《越人歌》",
+        "I exist because you need me. —— Claire McFall, Ferryman",
+        "Good morning, and in case I don't see you, good afternoon, good evening, and good night! —— The Truman Show",
+        "Whatever happens tomorrow, we had today. —— One Day",
+        "I want love or death. —— Léon: The Professional",
+        "生命是有光的，在我熄灭以前，能够照亮你一点，就是我所有能做的了。我爱你，你要记得我。——《云边有个小卖部》"
       ]
     },
     {
       "title": { "en": "Discover 100 Hidden Gem Songs", "zh": "发现100首宝藏歌曲" },
       "count": 100,
-      "progress": 9,
+      "progress": 10,
       "items": [
         "《在你的身边》 -- 盛哲",
         "《身骑白马》 -- 徐佳莹",
@@ -44,6 +50,7 @@
         "《转身即心痛》 -- 吉星出租",
         "《如愿》 -- 王菲",
         "《妈妈的话》 -- Zyboy忠宇",
+        "《暮色回响》 -- 吉星出租",
         "《错位时空》 -- 艾辰"
       ]
     },
@@ -56,6 +63,26 @@
         "《富贵不能淫》 -- 孟子",
         "《春江花月夜》 -- 张若虚"
       ]
+    },
+    {
+      "title": { "en": "Build 30 Code Repositories", "zh": "拥有30个代码储存库" },
+      "count": 30,
+      "progress": 7,
+      "items": [
+        "miracleyang-dev.github.io",
+        "basic-algorithms",
+        "bomb-cat-game",
+        "numerical-solutions",
+        "flow-focus-system",
+        "resume-source",
+        "romance-journey"
+      ]
+    },
+    {
+      "title": { "en": "Do 30 Discomfort-Zone Tasks", "zh": "做30件没那么想做的事" },
+      "count": 30,
+      "progress": 0,
+      "items": []
     }
   ],
   "achievements": [

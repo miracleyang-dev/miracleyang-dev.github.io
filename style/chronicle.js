@@ -11,7 +11,7 @@ var SITE_DATA = {
   targets: [],
   repos: [],
   essays: [],
-  lists: [],
+  records: [],
   achievements: []
 };
 
@@ -239,14 +239,14 @@ const UI_TEXT = {
       panel.innerHTML += '<div id="essaysSection">' + sectionHeading(UI_TEXT.sectionEssays) + '<div class="posts-list" id="postsList"></div></div>';
     }
     if (showAll || currentSubTab === 'records') {
-      panel.innerHTML += '<div id="recordsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionRecords) + '<div class="lists-list" id="listsList"></div></div>';
+      panel.innerHTML += '<div id="recordsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionRecords) + '<div class="records-list" id="recordsList"></div></div>';
     }
     if (showAll || currentSubTab === 'achievements') {
       panel.innerHTML += '<div id="achievementsSection" class="' + (showAll ? 'section-separator' : '') + '">' + sectionHeading(UI_TEXT.sectionAchievements) + '<div class="achievements-list" id="achievementsList"></div></div>';
     }
 
     if (document.getElementById('postsList')) renderEssays();
-    if (document.getElementById('listsList')) renderLists();
+    if (document.getElementById('recordsList')) renderRecords();
     if (document.getElementById('achievementsList')) renderAchievements();
   }
 
@@ -409,9 +409,9 @@ const UI_TEXT = {
     });
   }
 
-  // ---- Render lists ----
-  function renderLists() {
-    var html = SITE_DATA.lists.map(function(l, i) {
+  // ---- Render records ----
+  function renderRecords() {
+    var html = SITE_DATA.records.map(function(l, i) {
       var progressHTML = '';
       if (l.count) {
         var actual = l.progress != null ? l.progress : 0;
@@ -424,7 +424,7 @@ const UI_TEXT = {
         '</div>';
       }
       var countDisplay = (l.progress != null ? l.progress : 0) + '/' + l.count;
-      return '<div class="list-card" data-list="' + i + '">' +
+      return '<div class="list-card" data-record="' + i + '">' +
         '<div class="list-header">' +
           '<span class="list-title">' + t(l.title) + '</span>' +
           '<span class="list-count">' + countDisplay + '</span>' +
@@ -433,11 +433,11 @@ const UI_TEXT = {
       '</div>';
     }).join('');
 
-    document.getElementById('listsList').innerHTML = html;
+    document.getElementById('recordsList').innerHTML = html;
 
     requestAnimationFrame(function() {
       setTimeout(function() {
-        document.querySelectorAll('#listsList .skill-bar-fill').forEach(function(bar) {
+        document.querySelectorAll('#recordsList .skill-bar-fill').forEach(function(bar) {
           bar.style.width = bar.dataset.level + '%';
         });
       }, 200);
@@ -445,7 +445,7 @@ const UI_TEXT = {
 
     document.querySelectorAll('.list-card').forEach(function(card) {
       card.addEventListener('click', function() {
-        openListModal(parseInt(card.dataset.list));
+        openRecordModal(parseInt(card.dataset.record));
       });
     });
   }
@@ -517,9 +517,9 @@ const UI_TEXT = {
     });
   }
 
-  // ---- List modal ----
-  function openListModal(index) {
-    var list = SITE_DATA.lists[index];
+  // ---- Record modal ----
+  function openRecordModal(index) {
+    var list = SITE_DATA.records[index];
     if (!list || !list.items || list.items.length === 0) return;
 
     document.getElementById('modalTitle').textContent = t(list.title);
