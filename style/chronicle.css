@@ -127,6 +127,7 @@ a:hover { color: var(--text-primary); }
   position: fixed; top: 20px; right: 20px; z-index: 1000;
   width: 44px; height: 44px;
   background: var(--bg-panel); border: 1px solid var(--border-main);
+  border-radius: 6px;
   color: var(--text-muted); font-size: 1.2rem;
   cursor: pointer; transition: all 0.3s;
   display: flex; align-items: center; justify-content: center;
@@ -138,6 +139,7 @@ a:hover { color: var(--text-primary); }
   position: fixed; top: 20px; right: 74px; z-index: 1000;
   display: flex; align-items: center;
   background: var(--bg-panel); border: 1px solid var(--border-main);
+  border-radius: 6px;
   padding: 0 10px; height: 44px;
   font-family: var(--font-mono); font-size: 0.75rem;
   cursor: pointer; transition: all 0.3s;
@@ -360,31 +362,46 @@ a:hover { color: var(--text-primary); }
 .star-rating .star.filled { color: var(--star-filled); text-shadow: 0 0 4px rgba(200,168,78,0.3); }
 .star-rating .star.empty { color: var(--star-empty); }
 
-/* === SKILLS === */
+/* === SKILLS / PROGRESS === */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+  gap: 12px;
 }
 
 .skill-category-title {
   font-family: var(--font-display);
-  font-size: 0.75rem; letter-spacing: 0.15em;
+  font-size: 0.72rem; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--text-muted);
-  margin-bottom: 12px; grid-column: 1 / -1; padding-top: 8px;
+  margin-bottom: 8px; grid-column: 1 / -1;
+  padding-top: 4px; padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-main);
 }
 
 .skill-item {
-  padding: 10px 14px; background: var(--bg-card);
+  padding: 14px 16px; background: var(--bg-card);
   border: 1px solid var(--border-main); transition: border-color 0.2s;
 }
 .skill-item:hover { border-color: var(--border-accent); }
 
-.skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.skill-name { font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; color: var(--text-primary); }
-.skill-level { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-gold); }
+.skill-top-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 10px;
+}
+.skill-name {
+  font-family: var(--font-display); font-size: 0.82rem;
+  font-weight: 600; letter-spacing: 0.04em; color: var(--text-primary);
+}
+.skill-level {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--accent-gold); letter-spacing: 0.02em;
+}
 
-.skill-bar { height: 6px; background: var(--xp-bar-bg); border: 1px solid var(--border-main); position: relative; overflow: hidden; }
+.skill-bar {
+  height: 5px; background: var(--xp-bar-bg);
+  border: 1px solid var(--border-main);
+  position: relative; overflow: hidden;
+}
 
 .skill-bar-fill {
   height: 100%; background: var(--xp-bar-fill);
@@ -395,6 +412,15 @@ a:hover { color: var(--text-primary); }
   position: absolute; right: 0; top: 0; bottom: 0;
   width: 2px; background: var(--accent-gold);
   box-shadow: 0 0 6px var(--accent-gold);
+}
+
+.skill-meta-row {
+  margin-top: 8px;
+  display: flex; justify-content: flex-end;
+}
+.skill-date {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--text-muted); letter-spacing: 0.03em;
 }
 
 /* === SCROLLS / FILES === */
@@ -413,19 +439,40 @@ a:hover { color: var(--text-primary); }
 .file-name { font-family: var(--font-display); font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
 .file-desc { font-size: 0.8rem; color: var(--text-muted); }
 
-/* === POSTS === */
-.posts-list { display: flex; flex-direction: column; gap: 12px; }
+/* === POSTS / ESSAYS === */
+.posts-list { display: flex; flex-direction: column; gap: 0; }
 
 .post-item {
-  padding: 18px 20px; background: var(--bg-card);
-  border: 1px solid var(--border-main); transition: all 0.2s; cursor: pointer;
+  padding: 22px 24px; background: var(--bg-card);
+  border: 1px solid var(--border-main);
+  border-bottom: none;
+  transition: all 0.2s; cursor: pointer;
 }
-.post-item:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+.post-item:last-child { border-bottom: 1px solid var(--border-main); }
+.post-item:hover { background: var(--bg-card-hover); }
 
-.post-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-.post-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
-.post-title-text { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
-.post-summary { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+.post-title-text {
+  font-family: var(--font-display); font-size: 1.05rem;
+  font-weight: 600; color: var(--text-primary);
+  margin-bottom: 8px; line-height: 1.4;
+}
+
+.post-summary {
+  font-size: 0.9rem; color: var(--text-secondary);
+  line-height: 1.8; margin-bottom: 14px;
+}
+
+.post-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 10px; border-top: 1px solid var(--border-main);
+}
+
+.post-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.post-date {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--text-muted); flex-shrink: 0; margin-left: 12px;
+}
 
 .tag {
   font-family: var(--font-mono); font-size: 0.65rem;
@@ -465,22 +512,39 @@ a:hover { color: var(--text-primary); }
   font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;
 }
 
-/* === LISTS === */
+/* === LISTS / RECORDS === */
 .lists-list { display: flex; flex-direction: column; gap: 12px; }
 
 .records-list { display: flex; flex-direction: column; gap: 12px; }
 
 .list-card {
-  padding: 16px 20px; background: var(--bg-card);
+  padding: 18px 20px; background: var(--bg-card);
   border: 1px solid var(--border-main); transition: all 0.2s;
+  cursor: pointer;
 }
 .list-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 
-.list-header { display: flex; justify-content: space-between; align-items: center; }
+.list-top { margin-bottom: 12px; }
 
 .list-title {
-  font-family: var(--font-display); font-size: 0.95rem;
+  font-family: var(--font-display); font-size: 0.92rem;
   font-weight: 600; color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.list-bar-info {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-top: 6px;
+}
+
+.list-progress-text {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--text-muted); letter-spacing: 0.02em;
+}
+
+.list-date {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--text-muted); letter-spacing: 0.03em;
 }
 
 .list-count {
@@ -494,8 +558,16 @@ a:hover { color: var(--text-primary); }
   color: var(--text-muted); margin-bottom: 4px;
 }
 
+.record-footer {
+  margin-top: 8px; text-align: right;
+}
+.record-date {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--text-muted); letter-spacing: 0.03em;
+}
+
 /* === QUEST TARGETS === */
-.targets-list { display: flex; flex-direction: column; gap: 16px; }
+.targets-list { display: flex; flex-direction: column; gap: 14px; }
 
 /* === CODEX (GitHub repos) === */
 .codex-grid {
@@ -537,7 +609,7 @@ a:hover { color: var(--text-primary); }
 }
 
 .codex-footer {
-  margin-top: 10px; display: flex; align-items: center; gap: 14px;
+  margin-top: 10px; display: flex; align-items: center; justify-content: space-between;
 }
 
 .codex-lang {
@@ -549,56 +621,61 @@ a:hover { color: var(--text-primary); }
   width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
 }
 
+.codex-date {
+  font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
 .target-card {
-  position: relative; padding: 18px 20px; background: var(--bg-card);
+  padding: 20px 22px; background: var(--bg-card);
   border: 1px solid var(--border-main); transition: all 0.2s;
 }
 .target-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 
-/* Phase badge (active/completed) — top-right, like struggles status */
-.target-phase-badge {
-  position: absolute; top: 8px; right: 8px;
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 3px 8px; border: 1px solid; letter-spacing: 0.05em;
-  white-space: nowrap; background: var(--bg-panel);
+.target-top {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 8px;
 }
-.target-card.phase-active .target-phase-badge { color: var(--accent-green); border-color: var(--accent-green); }
-.target-card.phase-completed .target-phase-badge { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
-
-/* Type badge (main/side) — inline in header, like struggles severity */
-.target-type-badge {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 2px 8px; border: 1px solid; letter-spacing: 0.05em; white-space: nowrap;
-  text-transform: uppercase; flex-shrink: 0;
-}
-.target-card.type-main .target-type-badge { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
-.target-card.type-side .target-type-badge { color: var(--accent-green); border-color: var(--accent-green); }
-
-.target-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 
 .target-title {
   font-family: var(--font-display); font-size: 1rem;
   font-weight: 600; color: var(--text-primary);
+  flex: 1;
 }
+
+.target-status-badge {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  padding: 2px 8px; border: 1px solid; letter-spacing: 0.05em;
+  white-space: nowrap; flex-shrink: 0;
+}
+.target-card.phase-active .target-status-badge { color: var(--accent-green); border-color: var(--accent-green); }
+.target-card.phase-completed .target-status-badge { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
+.target-card.phase-pending .target-status-badge { color: var(--text-muted); border-color: var(--border-main); }
 
 .target-desc {
-  font-size: 0.9rem; color: var(--text-secondary);
-  line-height: 1.7; margin-bottom: 12px;
+  font-size: 0.88rem; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 14px;
 }
 
-.target-progress { margin-top: 4px; margin-bottom: 8px; }
-.target-progress-label {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--text-muted); margin-bottom: 4px;
+.target-bar-area {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.target-bar-area .skill-bar { flex: 1; }
+
+.target-pct {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--accent-gold); min-width: 32px; text-align: right;
+  flex-shrink: 0;
 }
 
-.target-footer {
-  font-size: 0.8rem; color: var(--text-muted);
-  text-align: right;
+.target-bottom {
+  display: flex; justify-content: flex-end;
 }
 
 .target-date {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--text-muted);
 }
 
 /* === BLOCKS/STRUGGLES === */
@@ -701,48 +778,51 @@ a:hover { color: var(--text-primary); }
 }
 
 /* === ACHIEVEMENTS === */
-.achievements-list { display: flex; flex-direction: column; gap: 16px; }
+.achievements-list { display: flex; flex-direction: column; gap: 14px; }
 
 .achievement-card {
-  position: relative; padding: 18px 20px; background: var(--bg-card);
+  padding: 20px 22px; background: var(--bg-card);
   border: 1px solid var(--border-main); transition: all 0.2s;
 }
 .achievement-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 
-.achievement-phase-badge {
-  position: absolute; top: 8px; right: 8px;
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 3px 8px; border: 1px solid; letter-spacing: 0.05em;
-  white-space: nowrap; background: var(--bg-panel);
-  color: var(--accent-gold); border-color: var(--accent-gold-dim);
+.achievement-top {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 8px;
 }
 
-.achievement-rank-badge {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 2px 8px; border: 1px solid; letter-spacing: 0.05em; white-space: nowrap;
-  text-transform: uppercase; flex-shrink: 0;
+.achievement-icon {
+  color: var(--accent-gold); font-size: 0.8rem;
+  flex-shrink: 0; line-height: 1;
 }
-.achievement-rank-badge.s { color: var(--accent-warm); border-color: var(--accent-warm); }
-.achievement-rank-badge.a { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
-
-.achievement-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 
 .achievement-title {
   font-family: var(--font-display); font-size: 1rem;
   font-weight: 600; color: var(--text-primary);
+  flex: 1;
+}
+
+.achievement-status {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  padding: 2px 8px; border: 1px solid var(--accent-gold-dim);
+  color: var(--accent-gold); letter-spacing: 0.05em;
+  white-space: nowrap; flex-shrink: 0;
 }
 
 .achievement-desc {
-  font-size: 0.9rem; color: var(--text-secondary);
-  line-height: 1.7; margin-bottom: 12px;
+  font-size: 0.88rem; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 10px;
+  padding-left: 20px;
 }
 
-.achievement-footer {
-  font-size: 0.8rem; color: var(--text-muted);
-  text-align: right;
+.achievement-bottom {
+  display: flex; justify-content: flex-end;
 }
 
-.achievement-date { font-family: var(--font-mono); }
+.achievement-date {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--text-muted);
+}
 
 /* Section separator for combined views */
 .section-separator { margin-top: 36px; }
@@ -797,9 +877,9 @@ a:hover { color: var(--text-primary); }
   .header-ornament .line { width: 50px; }
 
   /* -- Toggle buttons -- */
-  .theme-toggle, .lang-toggle { width: 36px; height: 36px; top: 14px; }
-  .theme-toggle { right: 54px; font-size: 1rem; }
-  .lang-toggle { right: 98px; padding: 0 8px; font-size: 0.68rem; width: auto; }
+  .theme-toggle, .lang-toggle { height: 34px; top: 12px; }
+  .theme-toggle { right: 12px; width: 34px; font-size: 1rem; border-radius: 6px; }
+  .lang-toggle { right: 52px; padding: 0 8px; font-size: 0.68rem; width: auto; border-radius: 6px; }
   /* -- Tab navigation: clean horizontal main tabs + sub-tab row -- */
   .tab-navigation {
     flex-direction: row; flex-wrap: wrap;
@@ -893,50 +973,57 @@ a:hover { color: var(--text-primary); }
   }
 
   /* -- Stats & Skills grids -- */
-  .stats-grid { grid-template-columns: 1fr; gap: 10px; }
-  .skills-grid { grid-template-columns: 1fr; gap: 10px; }
+  .stats-grid { grid-template-columns: 1fr; gap: 8px; }
+  .skills-grid { grid-template-columns: 1fr; gap: 8px; }
   .stat-item { padding: 10px 12px; }
   .stat-name { font-size: 0.76rem; }
-  .skill-item { padding: 10px 12px; }
-  .skill-name { font-size: 0.76rem; }
-  .skill-category-title, .stat-category-title { font-size: 0.68rem; margin-bottom: 8px; }
+  .skill-item { padding: 12px 14px; }
+  .skill-name { font-size: 0.78rem; }
+  .skill-level { font-size: 0.64rem; }
+  .skill-category-title, .stat-category-title { font-size: 0.66rem; margin-bottom: 6px; }
 
   /* -- Quest log targets -- */
-  .target-card { padding: 14px 14px; }
+  .target-card { padding: 16px 16px; }
+  .target-top { gap: 8px; }
+  .target-title { font-size: 0.92rem; }
+  .target-desc { font-size: 0.82rem; margin-bottom: 10px; }
+  .target-status-badge { font-size: 0.58rem; padding: 2px 6px; }
+  .target-pct { font-size: 0.64rem; }
 
-  /* -- Codex grid: 2 columns on mobile -- */
+  /* -- Codex grid -- */
   .codex-grid { grid-template-columns: 1fr; gap: 10px; }
   .codex-card { padding: 12px 14px; min-height: 96px; }
   .codex-name { font-size: 0.72rem; }
   .codex-desc { font-size: 0.76rem; -webkit-line-clamp: 2; line-clamp: 2; }
   .codex-lang { font-size: 0.62rem; }
   .codex-lang-dot { width: 7px; height: 7px; }
-  .target-title { font-size: 0.92rem; }
-  .target-desc { font-size: 0.84rem; }
-  .target-phase-badge { font-size: 0.6rem; padding: 2px 6px; }
-  .target-type-badge { font-size: 0.6rem; padding: 2px 6px; }
 
   /* -- Posts / essays -- */
-  .post-item { padding: 14px 14px; }
+  .post-item { padding: 18px 16px; }
   .post-title-text { font-size: 0.95rem; }
-  .post-summary { font-size: 0.84rem; }
-  .post-date { font-size: 0.65rem; }
-  .tag { font-size: 0.6rem; padding: 2px 6px; }
+  .post-summary { font-size: 0.84rem; line-height: 1.7; margin-bottom: 12px; }
+  .post-date { font-size: 0.62rem; }
+  .post-foot { padding-top: 8px; }
+  .tag { font-size: 0.58rem; padding: 2px 6px; }
 
-  /* -- Lists -- */
-  .list-card { padding: 14px 14px; }
-  .list-title { font-size: 0.88rem; }
+  /* -- Lists / Records -- */
+  .list-card { padding: 16px 14px; }
+  .list-title { font-size: 0.86rem; }
+  .list-top { margin-bottom: 10px; }
+  .list-progress-text { font-size: 0.64rem; }
+  .list-date { font-size: 0.58rem; }
 
   /* -- Records -- */
-  .record-card { padding: 14px 14px; }
+  .record-card { padding: 16px 16px; }
   .record-title { font-size: 0.92rem; }
   .record-type { font-size: 0.6rem; }
 
   /* -- Achievements -- */
-  .achievement-card { padding: 14px 14px; }
+  .achievement-card { padding: 16px 16px; }
   .achievement-title { font-size: 0.92rem; }
-  .achievement-phase-badge { font-size: 0.6rem; padding: 2px 6px; }
-  .achievement-rank-badge { font-size: 0.6rem; padding: 2px 6px; }
+  .achievement-status { font-size: 0.58rem; padding: 2px 6px; }
+  .achievement-desc { font-size: 0.82rem; padding-left: 16px; }
+  .achievement-icon { font-size: 0.72rem; }
 
   /* -- Blocks/struggles -- */
   .block-card { padding: 14px 14px; }

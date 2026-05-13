@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #0f0d0a; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1a1714; }
+    }
+  </style>
+  <!-- Diamond shape background -->
+  <rect class="bg" width="32" height="32" rx="4" fill="#0f0d0a"/>
+  <!-- Outer diamond border -->
+  <polygon points="16,2 30,16 16,30 2,16" fill="none" stroke="#c8a84e" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Inner diamond accent -->
+  <polygon points="16,6 26,16 16,26 6,16" fill="none" stroke="#c8a84e" stroke-width="0.6" stroke-linejoin="round" opacity="0.4"/>
+  <!-- Stylized C monogram -->
+  <path d="M19.5,11.5 C18.5,10 17,9.5 15.5,9.5 C12,9.5 10,12 10,16 C10,20 12,22.5 15.5,22.5 C17,22.5 18.5,22 19.5,20.5"
+        fill="none" stroke="#c8a84e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Small decorative serifs on the C -->
+  <line x1="19.5" y1="11.5" x2="21" y2="11" stroke="#c8a84e" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="19.5" y1="20.5" x2="21" y2="21" stroke="#c8a84e" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

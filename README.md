@@ -14,12 +14,19 @@
 - 数据驱动：通过 `database/*.json` 管理页面内容
 - 模块化内容区域：Profile / Vocation / Being
 - 纯静态站点：无需后端服务
+- SVG 站点图标：适配 PC 和移动端，可通过网址链接引入
+
+## 时间格式规范
+
+- 全站时间统一显示为**年-月**（YYYY-MM）格式
+- 例外：站点更新时间（footer）保持完整日期；随笔（Essays）文章时间保持原样
 
 ## 目录结构
 
 ```text
 .
 ├─ index.html                # 页面入口
+├─ favicon.svg               # 站点图标（SVG）
 ├─ 404.html                  # 404 页面
 ├─ CNAME                     # GitHub Pages 自定义域名
 ├─ style/
@@ -27,10 +34,24 @@
 │  └─ chronicle.js           # 渲染逻辑与交互
 └─ database/
    ├─ profile.json           # 站点与个人信息、文档链接
-   ├─ vocation.json          # 属性、进度、目标
+   ├─ vocation.json          # 属性、进度、典籍、任务目标
    ├─ being.json             # 随笔、记录、成就
    └─ documents/             # 附件（如简历 PDF）
 ```
+
+## 模块说明
+
+| 模块 | 说明 |
+|------|------|
+| Profile > Character | 个人角色信息卡片 |
+| Profile > Documents | 简历等文档链接 |
+| Vocation > Stats | 属性星级评分 |
+| Vocation > Progress | 技能进度条（含时间标记） |
+| Vocation > Codex | GitHub 代码仓库展示（含语言与时间标记） |
+| Vocation > Quest Log | 任务目标与进度 |
+| Being > Essays | 随笔文章 |
+| Being > Records | 收藏/打卡记录（含时间与进度条） |
+| Being > Achievements | 成就展示 |
 
 ## 本地预览
 
@@ -52,9 +73,10 @@ py -m http.server 8000
 ## 内容维护
 
 1. 修改 `database/profile.json`：站点标题、副标题、个人信息、外链、简历链接等。
-2. 修改 `database/vocation.json`：属性评分、能力进度、任务目标。
-3. 修改 `database/being.json`：随笔、记录与成就。
+2. 修改 `database/vocation.json`：属性评分、能力进度（含时间）、典籍仓库（含时间）、任务目标。
+3. 修改 `database/being.json`：随笔、记录（含时间）与成就。
 4. 若更新简历等附件，请将文件放到 `database/documents/` 并同步更新 JSON 中的路径。
+5. 站点图标为 `favicon.svg`，可直接替换。
 
 ## 部署说明
 

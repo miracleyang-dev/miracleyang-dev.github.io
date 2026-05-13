@@ -2,92 +2,97 @@
   "stats": [
     {"name": {"en": "Tidy", "zh": "干净"}, "rating": 4, "category": "presence", "categoryName": {"en": "Presence", "zh": "形格"}},
     {"name": {"en": "Make Money", "zh": "搞钱"}, "rating": 2, "category": "proof", "categoryName": {"en": "Proof", "zh": "事功"}},
-    {"name": {"en": "Know and Do", "zh": "知行合一"}, "rating": 2, "category": "power", "categoryName": {"en": "Power", "zh": "心炼"}},
+    {"name": {"en": "Know and Do", "zh": "知行合一"}, "rating": 2, "category": "proof", "categoryName": {"en": "Proof", "zh": "事功"}},
     {"name": {"en": "Self-Disciplined", "zh": "克己守正"}, "rating": 1, "category": "power", "categoryName": {"en": "Power", "zh": "心炼"}},
-    {"name": {"en": "steel in silk", "zh": "外柔内刚"}, "rating": 2, "category": "personality", "categoryName": {"en": "Personality", "zh": "品韵"}},
-    {"name": {"en": "Mindset", "zh": "思想意识"}, "rating": 4, "category": "potential", "categoryName": {"en": "Potential", "zh": "势能"}},
-    {"name": {"en": "Keep Growing", "zh": "持续成长"}, "rating": 5, "category": "potential", "categoryName": {"en": "Potential", "zh": "势能"}}
+    {"name": {"en": "Steel in Silk", "zh": "外柔内刚"}, "rating": 2, "category": "personality", "categoryName": {"en": "Personality", "zh": "品韵"}},
+    {"name": {"en": "Self-Driven", "zh": "自驱力"}, "rating": 4, "category": "potential", "categoryName": {"en": "Potential", "zh": "势能"}},
+    {"name": {"en": "Iterative Growth", "zh": "可迭代成长"}, "rating": 5, "category": "potential", "categoryName": {"en": "Potential", "zh": "势能"}}
   ],
   "progress": [
-    {"name": {"en": "PDE", "zh": "偏微分方程"}, "categoryName": {"en": "Math", "zh": "数学"}, "level": 0, "category": "math"},
-    {"name": {"en": "Functional Analysis", "zh": "泛函分析"}, "categoryName": {"en": "Math", "zh": "数学"}, "level": 0, "category": "math"},
-    {"name": {"en": "machine learning", "zh": "机器学习"}, "categoryName": {"en": "Machine Learning", "zh": "机器学习"}, "level": 0, "category": "machine learning"},
-    {"name": {"en": "deep learning", "zh": "深度学习"}, "categoryName": {"en": "Machine Learning", "zh": "机器学习"}, "level": 0, "category": "machine learning"}
+    {"name": {"en": "PDE", "zh": "偏微分方程"}, "categoryName": {"en": "Math", "zh": "数学"}, "level": 0, "category": "math", "date": "2026-07"},
+    {"name": {"en": "Functional Analysis", "zh": "泛函分析"}, "categoryName": {"en": "Math", "zh": "数学"}, "level": 10, "category": "math", "date": "2026-05"}
   ],
   "repos": [
+    {
+      "name": "kaggle-practice-notebooks",
+      "description": { "en": "Kaggle practice notebooks for beginner competitions and the Playground Series.", "zh": "Kaggle 练习项目合集，涵盖入门赛与 Playground Series，专注于实践与复盘。" },
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/miracleyang-dev/kaggle-practice-notebooks",
+      "date": "2026-05"
+    },
     {
       "name": "miracleyang-dev.github.io",
       "description": { "en": "This is the code that brings miracleyang.com to life — a personal space for my blog.", "zh": "这是让 miracleyang.com 运行起来的代码，也是我的博客个人空间。" },
       "language": "CSS",
       "url": "https://github.com/miracleyang-dev/miracleyang-dev.github.io",
-      "featured": true
-    },
-    {
-      "name": "basic-algorithms",
-      "description": { "en": "Primarily written in C++, these are common intermediate-to-advanced algorithms for self-practice.", "zh": "这些内容主要用 C++ 编写，收录了常见的中高级算法用于自我练习。" },
-      "language": "C++",
-      "url": "https://github.com/miracleyang-dev/basic-algorithms",
-      "featured": true
-    },
-    {
-      "name": "bomb-cat-game",
-      "description": { "en": "A simple strategy game about using cards to battle monsters.", "zh": "一个简单的策略游戏，围绕用卡牌与怪物战斗展开。" },
-      "language": "Python",
-      "url": "https://github.com/miracleyang-dev/bomb-cat-game",
-      "featured": true
-    },
-    {
-      "name": "numerical-solutions",
-      "description": { "en": "Classic problems and solutions in numerical linear algebra for a computational mathematics course.", "zh": "面向计算数学课程的数值线性代数经典问题与解答。" },
-      "language": "TeX",
-      "url": "https://github.com/miracleyang-dev/numerical-solutions",
-      "featured": true
+      "date": "2026-04"
     },
     {
       "name": "flow-focus-system",
       "description": { "en": "A minimalist personal productivity system for achieving deep focus.", "zh": "一个用于实现深度专注的极简个人效率系统。" },
       "language": "JavaScript",
       "url": "https://github.com/miracleyang-dev/flow-focus-system",
-      "featured": true
-    },
-    {
-      "name": "resume-source",
-      "description": { "en": "Source code for my personal resume, used to generate PDF version.", "zh": "我的个人简历源代码，用于生成 PDF 版本。" },
-      "language": "HTML",
-      "url": "https://github.com/miracleyang-dev/resume-source",
-      "featured": true
+      "date": "2026-04"
     },
     {
       "name": "romance-journey",
       "description": { "en": "A romantic journal app that captures couples' milestones, dates, and shared memories in one warm, story-like timeline.", "zh": "一款浪漫的日记应用，可以把情侣的节点、约会和共同记忆收进一条温暖、故事感的时间线。" },
       "language": "JavaScript",
       "url": "https://github.com/miracleyang-dev/romance-journey",
-      "featured": true
+      "date": "2026-04"
+    },
+    {
+      "name": "basic-algorithms",
+      "description": { "en": "Primarily written in C++, these are common intermediate-to-advanced algorithms for self-practice.", "zh": "这些内容主要用 C++ 编写，收录了常见的中高级算法用于自我练习。" },
+      "language": "C++",
+      "url": "https://github.com/miracleyang-dev/basic-algorithms",
+      "date": "2025-12"
+    },
+    {
+      "name": "bomb-cat-game",
+      "description": { "en": "A simple strategy game about using cards to battle monsters.", "zh": "一个简单的策略游戏，围绕用卡牌与怪物战斗展开。" },
+      "language": "Python",
+      "url": "https://github.com/miracleyang-dev/bomb-cat-game",
+      "date": "2025-12"
+    },
+    {
+      "name": "numerical-solutions",
+      "description": { "en": "Classic problems and solutions in numerical linear algebra for a computational mathematics course.", "zh": "面向计算数学课程的数值线性代数经典问题与解答。" },
+      "language": "TeX",
+      "url": "https://github.com/miracleyang-dev/numerical-solutions",
+      "date": "2025-12"
+    },
+    {
+      "name": "resume-source",
+      "description": { "en": "Source code for my personal resume, used to generate PDF version.", "zh": "我的个人简历源代码，用于生成 PDF 版本。" },
+      "language": "HTML",
+      "url": "https://github.com/miracleyang-dev/resume-source",
+      "date": "2025-12"
     }
   ],
   "targets": [
-    {
-      "title": { "en": "IELTS", "zh": "雅思" },
-      "type": "main",
-      "status": "active",
-      "progress": 30,
-      "startDate": "2026-01-01",
-      "description": { "en": "IELTS goal: band 7.", "zh": "雅思目标：7分。" }
-    },
     {
       "title": { "en": "Article", "zh": "论文" },
       "type": "main",
       "status": "active",
       "progress": 70,
-      "startDate": "2026-02-01",
+      "startDate": "2026-02",
       "description": { "en": "Undergrad research: publish an SCI paper.", "zh": "本科科研：发SCI论文。" }
+    },
+    {
+      "title": { "en": "IELTS", "zh": "雅思" },
+      "type": "main",
+      "status": "active",
+      "progress": 30,
+      "startDate": "2026-01",
+      "description": { "en": "IELTS goal: band 7.", "zh": "雅思目标：7分。" }
     },
     {
       "title": { "en": "Scholarship", "zh": "国奖" },
       "type": "main",
       "status": "completed",
       "progress": 100,
-      "startDate": "2025-09-01",
+      "startDate": "2025-12",
       "description": { "en": "National Scholarship.", "zh": "国家奖学金。" }
     }
   ]

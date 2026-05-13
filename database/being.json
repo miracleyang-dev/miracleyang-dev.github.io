@@ -21,9 +21,33 @@
   ],
   "records": [
     {
+      "title": { "en": "Do 30 Discomfort-Zone Tasks", "zh": "做30件没那么想做的事" },
+      "date": "2026-05",
+      "count": 30,
+      "progress": 0,
+      "items": []
+    },
+    {
+      "title": { "en": "Build 30 Code Repositories", "zh": "拥有30个代码储存库" },
+      "date": "2026-04",
+      "count": 30,
+      "progress": 8,
+      "items": [
+        "miracleyang-dev.github.io",
+        "basic-algorithms",
+        "bomb-cat-game",
+        "numerical-solutions",
+        "flow-focus-system",
+        "resume-source",
+        "romance-journey",
+        "kaggle-practice-notebooks"
+      ]
+    },
+    {
       "title": { "en": "Collect 100 Romantic Quotes", "zh": "收藏100句浪漫名言" },
+      "date": "2026-03",
       "count": 100,
-      "progress": 10,
+      "progress": 11,
       "items": [
         "All's fair in love and war.",
         "Some of us get dipped in flat, some in satin, some in gloss. But every once in a while you find someone who's iridescent, and when you do, nothing will ever compare. -- Flipped",
@@ -34,13 +58,26 @@
         "Good morning, and in case I don't see you, good afternoon, good evening, and good night! —— The Truman Show",
         "Whatever happens tomorrow, we had today. —— One Day",
         "I want love or death. —— Léon: The Professional",
-        "生命是有光的，在我熄灭以前，能够照亮你一点，就是我所有能做的了。我爱你，你要记得我。——《云边有个小卖部》"
+        "生命是有光的，在我熄灭以前，能够照亮你一点，就是我所有能做的了。我爱你，你要记得我。——《云边有个小卖部》",
+        "相信奇迹的人，本身就和奇迹一样了不起！——《星游记》"
+      ]
+    },
+    {
+      "title": { "en": "Memorize 100 Chinese Classical Poems and Prose Pieces", "zh": "背诵100篇中国古诗文" },
+      "date": "2026-03",
+      "count": 100,
+      "progress": 3,
+      "items": [
+        "《生于忧患，死于安乐》 -- 孟子",
+        "《富贵不能淫》 -- 孟子",
+        "《春江花月夜》 -- 张若虚"
       ]
     },
     {
       "title": { "en": "Discover 100 Hidden Gem Songs", "zh": "发现100首宝藏歌曲" },
+      "date": "2026-02",
       "count": 100,
-      "progress": 10,
+      "progress": 12,
       "items": [
         "《在你的身边》 -- 盛哲",
         "《身骑白马》 -- 徐佳莹",
@@ -51,38 +88,10 @@
         "《如愿》 -- 王菲",
         "《妈妈的话》 -- Zyboy忠宇",
         "《暮色回响》 -- 吉星出租",
-        "《错位时空》 -- 艾辰"
+        "《错位时空》 -- 艾辰",
+        "《手心的蔷薇》 -- 林俊杰/邓紫棋",
+        "《我会等》 -- 承桓"
       ]
-    },
-    {
-      "title": { "en": "Memorize 100 Chinese Classical Poems and Prose Pieces", "zh": "背诵100篇中国古诗文" },
-      "count": 100,
-      "progress": 3,
-      "items": [
-        "《生于忧患，死于安乐》 -- 孟子",
-        "《富贵不能淫》 -- 孟子",
-        "《春江花月夜》 -- 张若虚"
-      ]
-    },
-    {
-      "title": { "en": "Build 30 Code Repositories", "zh": "拥有30个代码储存库" },
-      "count": 30,
-      "progress": 7,
-      "items": [
-        "miracleyang-dev.github.io",
-        "basic-algorithms",
-        "bomb-cat-game",
-        "numerical-solutions",
-        "flow-focus-system",
-        "resume-source",
-        "romance-journey"
-      ]
-    },
-    {
-      "title": { "en": "Do 30 Discomfort-Zone Tasks", "zh": "做30件没那么想做的事" },
-      "count": 30,
-      "progress": 0,
-      "items": []
     }
   ],
   "achievements": [
@@ -90,7 +99,7 @@
       "title": { "en": "985 Undergraduate", "zh": "985本科" },
       "description": { "en": "School of Mathematics, WHU", "zh": "武大数院" },
       "rank": "A",
-      "date": "2025-09"
+      "date": "2025-12"
     }
   ]
 }

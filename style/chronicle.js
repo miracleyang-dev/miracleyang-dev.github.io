@@ -318,7 +318,7 @@ const UI_TEXT = {
     document.getElementById('statsGrid').innerHTML = html;
   }
 
-  // ---- Render skills ----
+  // ---- Render progress ----
   function renderProgress() {
     var grouped = {};
     SITE_DATA.progress.forEach(function(s) {
@@ -332,7 +332,15 @@ const UI_TEXT = {
       html += '<div class="skill-category-title">' + cat + '</div>';
       grouped[cat].forEach(function(s) {
         var levelText = s.level === 0 ? 'Exploring' : (s.level + '/100');
-        html += '<div class="skill-item"><div class="skill-header"><span class="skill-name">' + t(s.name) + '</span><span class="skill-level">' + levelText + '</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="' + s.level + '"></div></div></div>';
+        var dateText = s.date ? formatYearMonth(s.date) : '';
+        html += '<div class="skill-item">' +
+          '<div class="skill-top-row">' +
+            '<span class="skill-name">' + t(s.name) + '</span>' +
+            '<span class="skill-level">' + levelText + '</span>' +
+          '</div>' +
+          '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + s.level + '"></div></div>' +
+          (dateText ? '<div class="skill-meta-row"><span class="skill-date">' + dateText + '</span></div>' : '') +
+        '</div>';
       });
     }
 
@@ -357,10 +365,11 @@ const UI_TEXT = {
   };
 
   function renderCodex() {
-    var repos = (SITE_DATA.repos || []).filter(function(r) { return r.featured; }).slice(0, 20);
+    var repos = SITE_DATA.repos || [];
 
     var html = repos.map(function(repo) {
       var langColor = LANG_COLORS[repo.language] || '#8a7e6e';
+      var dateHTML = repo.date ? '<span class="codex-date">' + formatYearMonth(repo.date) + '</span>' : '';
       return '<a href="' + repo.url + '" class="codex-card" target="_blank" rel="noopener">' +
         '<div class="codex-header">' +
           '<span class="codex-icon">\u{1F4DC}</span>' +
@@ -372,6 +381,7 @@ const UI_TEXT = {
             '<span class="codex-lang-dot" style="background:' + langColor + '"></span>' +
             repo.language +
           '</span>' +
+          dateHTML +
         '</div>' +
       '</a>';
     }).join('');
@@ -395,10 +405,14 @@ const UI_TEXT = {
   function renderEssays() {
     var sorted = SITE_DATA.essays.slice().sort(function(a, b) { return b.date.localeCompare(a.date); });
     var html = sorted.map(function(p, idx) {
+      var tagsHTML = p.tags.map(function(tg) { return '<span class="tag">' + t(tg) + '</span>'; }).join('');
       return '<div class="post-item" data-index="' + SITE_DATA.essays.indexOf(p) + '">' +
-        '<div class="post-meta"><span class="post-date">' + p.date + '</span>' + p.tags.map(function(tg) { return '<span class="tag">' + t(tg) + '</span>'; }).join('') + '</div>' +
         '<h3 class="post-title-text">' + t(p.title) + '</h3>' +
         '<p class="post-summary">' + t(p.summary) + '</p>' +
+        '<div class="post-foot">' +
+          '<div class="post-tags">' + tagsHTML + '</div>' +
+          '<span class="post-date">' + p.date + '</span>' +
+        '</div>' +
       '</div>';
     }).join('');
 
@@ -412,24 +426,23 @@ const UI_TEXT = {
   // ---- Render records ----
   function renderRecords() {
     var html = SITE_DATA.records.map(function(l, i) {
-      var progressHTML = '';
-      if (l.count) {
-        var actual = l.progress != null ? l.progress : 0;
-        var reached = actual >= l.count;
-        var displayProgress = reached ? l.count : actual;
-        var pct = reached ? 100 : Math.round(actual / l.count * 100);
-        progressHTML = '<div class="list-progress">' +
-          '<div class="list-progress-label">' + displayProgress + ' / ' + l.count + '</div>' +
-          '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + pct + '"></div></div>' +
-        '</div>';
-      }
-      var countDisplay = (l.progress != null ? l.progress : 0) + '/' + l.count;
+      var actual = l.progress != null ? l.progress : 0;
+      var reached = actual >= l.count;
+      var displayProgress = reached ? l.count : actual;
+      var pct = l.count ? (reached ? 100 : Math.round(actual / l.count * 100)) : 0;
+      var dateText = l.date ? formatYearMonth(l.date) : '';
+
       return '<div class="list-card" data-record="' + i + '">' +
-        '<div class="list-header">' +
+        '<div class="list-top">' +
           '<span class="list-title">' + t(l.title) + '</span>' +
-          '<span class="list-count">' + countDisplay + '</span>' +
         '</div>' +
-        progressHTML +
+        (l.count ? '<div class="list-bar-area">' +
+          '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + pct + '"></div></div>' +
+          '<div class="list-bar-info">' +
+            '<span class="list-progress-text">' + displayProgress + ' / ' + l.count + '</span>' +
+            (dateText ? '<span class="list-date">' + dateText + '</span>' : '') +
+          '</div>' +
+        '</div>' : '') +
       '</div>';
     }).join('');
 
@@ -456,15 +469,15 @@ const UI_TEXT = {
       return (b.date || '').localeCompare(a.date || '');
     }).map(function(ach) {
       var descHTML = ach.description ? '<div class="achievement-desc">' + t(ach.description) + '</div>' : '';
-      return '<div class="achievement-card rank-' + ach.rank.toLowerCase() + '">' +
-        '<div class="achievement-phase-badge">' + t(UI_TEXT.statusCompleted) + '</div>' +
-        '<div class="achievement-header">' +
-          '<span class="achievement-rank-badge ' + ach.rank.toLowerCase() + '">' + ach.rank + '</span>' +
+      return '<div class="achievement-card">' +
+        '<div class="achievement-top">' +
+          '<span class="achievement-icon">\u2726</span>' +
           '<span class="achievement-title">' + t(ach.title) + '</span>' +
+          '<span class="achievement-status">' + t(UI_TEXT.statusCompleted) + '</span>' +
         '</div>' +
         descHTML +
-        '<div class="achievement-footer">' +
-          '<span class="achievement-date">' + (ach.date || '') + '</span>' +
+        '<div class="achievement-bottom">' +
+          '<span class="achievement-date">' + formatYearMonth(ach.date) + '</span>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -472,35 +485,26 @@ const UI_TEXT = {
     document.getElementById('achievementsList').innerHTML = html;
   }
 
-  // ---- Render targets ----
+  // ---- Render quest log ----
   function renderQuestLog() {
     var phaseLabels = {
       'pending': UI_TEXT.statusPending,
       'active': UI_TEXT.statusActive,
       'completed': UI_TEXT.statusCompleted
     };
-    var typeLabels = {
-      'main': UI_TEXT.targetMain,
-      'side': UI_TEXT.targetSide
-    };
     var html = SITE_DATA.targets.slice().sort(function(a, b) { return b.startDate.localeCompare(a.startDate); }).map(function(tgt) {
-      var typeHTML = '';
-      if (tgt.type && typeLabels[tgt.type]) {
-        typeHTML = '<span class="target-type-badge ' + tgt.type + '">' + t(typeLabels[tgt.type]) + '</span>';
-      }
       var phaseText = phaseLabels[tgt.status] ? t(phaseLabels[tgt.status]) : tgt.status;
-      return '<div class="target-card type-' + tgt.type + ' phase-' + tgt.status + '">' +
-        '<div class="target-phase-badge">' + phaseText + '</div>' +
-        '<div class="target-header">' +
-          typeHTML +
+      return '<div class="target-card phase-' + tgt.status + '">' +
+        '<div class="target-top">' +
           '<span class="target-title">' + t(tgt.title) + '</span>' +
+          '<span class="target-status-badge">' + phaseText + '</span>' +
         '</div>' +
         '<div class="target-desc">' + t(tgt.description) + '</div>' +
-        '<div class="target-progress">' +
-          '<div class="target-progress-label">' + tgt.progress + '%</div>' +
+        '<div class="target-bar-area">' +
           '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + tgt.progress + '"></div></div>' +
+          '<span class="target-pct">' + tgt.progress + '%</span>' +
         '</div>' +
-        '<div class="target-footer">' +
+        '<div class="target-bottom">' +
           '<span class="target-date">' + formatYearMonth(tgt.startDate) + '</span>' +
         '</div>' +
       '</div>';
