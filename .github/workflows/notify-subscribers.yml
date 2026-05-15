@@ -1,0 +1,123 @@
+name: Notify Subscribers
+
+on:
+  workflow_dispatch:
+    inputs:
+      subject:
+        description: Email subject
+        required: false
+        default: ""
+      body:
+        description: Email body (plain text)
+        required: false
+        default: ""
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+
+    steps:
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install nodemailer
+
+      - name: Send email to subscribers
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EMAIL_SUBJECT: ${{ inputs.subject }}
+          EMAIL_BODY: ${{ inputs.body }}
+        run: |
+          node <<'NODE'
+          const nodemailer = require('nodemailer');
+          const fs = require('fs');
+
+          function readTemplate(filePath) {
+            if (!fs.existsSync(filePath)) return { subject: '', body: '' };
+            const raw = fs.readFileSync(filePath, 'utf8');
+            const parts = raw.split(/\r?\n\r?\n/);
+            const firstLine = (parts[0] || '').trim();
+            const subjectMatch = /^Subject:\s*(.*)$/i.exec(firstLine);
+            const subject = subjectMatch ? subjectMatch[1].trim() : '';
+            const body = parts.slice(1).join('\n\n').trim();
+            return { subject, body };
+          }
+
+          function parseEmail(title) {
+            const match = /^\[subscribe\]\s+(.+)$/.exec(title || '');
+            if (!match) return null;
+            const email = match[1].trim().toLowerCase();
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
+          }
+
+          async function listSubscribers() {
+            const repo = process.env.GH_REPO || '';
+            const [owner, name] = repo.split('/');
+            if (!owner || !name) throw new Error('Invalid GH_REPO');
+
+            const url = `https://api.github.com/repos/${owner}/${name}/issues?state=open&labels=subscribe&per_page=100`;
+            const res = await fetch(url, {
+              headers: {
+                'Accept': 'application/vnd.github+json',
+                'Authorization': `Bearer ${process.env.GH_TOKEN}`
+              }
+            });
+            if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+            const data = await res.json();
+            const emails = new Set();
+            for (const issue of data) {
+              const email = parseEmail(issue.title);
+              if (email) emails.add(email);
+            }
+            return Array.from(emails);
+          }
+
+          async function main() {
+            const template = readTemplate('database/notify-template.txt');
+            const subject = process.env.EMAIL_SUBJECT || template.subject || 'Chronicle Update';
+            const body = process.env.EMAIL_BODY || template.body || '';
+            const smtpPort = Number(process.env.SMTP_PORT || 465);
+
+            const emails = await listSubscribers();
+            if (emails.length === 0) {
+              console.log('No subscribers found.');
+              return;
+            }
+
+            const transporter = nodemailer.createTransport({
+              host: process.env.SMTP_HOST,
+              port: smtpPort,
+              secure: smtpPort === 465,
+              auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+              }
+            });
+
+            const fromName = 'Chronicle Updates';
+            await transporter.sendMail({
+              from: `${fromName} <${process.env.SMTP_USER}>`,
+              to: process.env.SMTP_USER,
+              bcc: emails,
+              subject,
+              text: body
+            });
+
+            console.log(`Sent to ${emails.length} subscribers.`);
+          }
+
+          main().catch((err) => {
+            console.error(err);
+            process.exit(1);
+          });
+          NODE

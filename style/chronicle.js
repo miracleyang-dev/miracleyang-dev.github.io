@@ -365,7 +365,7 @@ const UI_TEXT = {
   };
 
   function renderCodex() {
-    var repos = SITE_DATA.repos || [];
+    var repos = (SITE_DATA.repos || []).filter(function(r) { return r.featured; }).slice(0, 20);
 
     var html = repos.map(function(repo) {
       var langColor = LANG_COLORS[repo.language] || '#8a7e6e';
@@ -631,5 +631,193 @@ const UI_TEXT = {
     .catch(function(err) {
       console.error('Chronicle data not found. Please ensure database/profile.json, database/vocation.json, and database/being.json are readable.', err);
     });
+
+  // ---- Subscribe system ----
+  var SUB_CONFIG = {
+    owner: 'miracleyang-dev',
+    repo: 'miracleyang-dev.github.io',
+    // TODO: Replace with your fine-grained PAT (only needs Issues read/write on this repo)
+    token: ''
+  };
+
+  var subTexts = {
+    titleSubscribe: { en: 'Follow', zh: '关注' },
+    titleUnsubscribe: { en: 'Unfollow', zh: '取消关注' },
+    descSubscribe: { en: 'Enter your email to get notified when new content is published.', zh: '留下邮箱，有新内容更新时会收到通知。' },
+    descUnsubscribe: { en: 'Enter the email you subscribed with to unfollow.', zh: '输入订阅时使用的邮箱来取消关注。' },
+    btnSubscribe: { en: 'Subscribe', zh: '订阅' },
+    btnUnsubscribe: { en: 'Unsubscribe', zh: '取消订阅' },
+    btnFollow: { en: 'Follow', zh: '关注' },
+    switchToUnsub: { en: 'Want to unsubscribe?', zh: '想取消关注？' },
+    switchToSub: { en: 'Want to subscribe?', zh: '想要关注？' },
+    msgSuccess: { en: 'Subscribed! You will be notified of updates.', zh: '订阅成功！有更新时会通知你。' },
+    msgUnsubSuccess: { en: 'Unsubscribed. You will no longer receive notifications.', zh: '已取消关注，后续不会再收到通知。' },
+    msgAlready: { en: 'This email is already subscribed.', zh: '该邮箱已经订阅过了。' },
+    msgNotFound: { en: 'This email is not subscribed.', zh: '该邮箱没有订阅记录。' },
+    msgInvalid: { en: 'Please enter a valid email address.', zh: '请输入有效的邮箱地址。' },
+    msgNoToken: { en: 'Subscribe service is not configured yet.', zh: '订阅服务尚未配置。' },
+    msgError: { en: 'Something went wrong. Please try again later.', zh: '出了点问题，请稍后再试。' },
+    msgSending: { en: 'Processing...', zh: '处理中...' }
+  };
+
+  var subMode = 'subscribe'; // 'subscribe' or 'unsubscribe'
+
+  function st(key) { return subTexts[key] ? (subTexts[key][currentLang] || subTexts[key].en) : ''; }
+
+  function updateSubModalUI() {
+    var isSub = subMode === 'subscribe';
+    document.getElementById('subModalTitle').textContent = st(isSub ? 'titleSubscribe' : 'titleUnsubscribe');
+    document.getElementById('subModalDesc').textContent = st(isSub ? 'descSubscribe' : 'descUnsubscribe');
+    document.getElementById('subSubmit').textContent = st(isSub ? 'btnSubscribe' : 'btnUnsubscribe');
+    document.getElementById('subToggleMode').textContent = st(isSub ? 'switchToUnsub' : 'switchToSub');
+    document.getElementById('subscribeBtnText').textContent = st('btnFollow');
+    document.getElementById('subMsg').textContent = '';
+    document.getElementById('subMsg').className = 'sub-msg';
+    document.getElementById('subEmail').value = '';
+  }
+
+  function openSubModal() {
+    subMode = 'subscribe';
+    updateSubModalUI();
+    document.getElementById('subModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { document.getElementById('subEmail').focus(); }, 100);
+  }
+
+  function closeSubModal() {
+    document.getElementById('subModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('subscribeBtn').addEventListener('click', openSubModal);
+  document.getElementById('subModalClose').addEventListener('click', closeSubModal);
+  document.getElementById('subModal').addEventListener('click', function(e) {
+    if (e.target === e.currentTarget) closeSubModal();
+  });
+
+  document.getElementById('subToggleMode').addEventListener('click', function() {
+    subMode = subMode === 'subscribe' ? 'unsubscribe' : 'subscribe';
+    updateSubModalUI();
+  });
+
+  function showSubMsg(key, type) {
+    var el = document.getElementById('subMsg');
+    el.textContent = st(key);
+    el.className = 'sub-msg ' + type;
+  }
+
+  function ghAPI(method, path, body) {
+    var url = 'https://api.github.com' + path;
+    var opts = {
+      method: method,
+      headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': 'Bearer ' + SUB_CONFIG.token
+      }
+    };
+    if (body) {
+      opts.headers['Content-Type'] = 'application/json';
+      opts.body = JSON.stringify(body);
+    }
+    return fetch(url, opts).then(function(r) {
+      if (r.status === 204) return null;
+      return r.json().then(function(data) {
+        data._status = r.status;
+        return data;
+      });
+    });
+  }
+
+  function findIssueByEmail(email) {
+    var q = encodeURIComponent('[subscribe] ' + email + ' repo:' + SUB_CONFIG.owner + '/' + SUB_CONFIG.repo + ' is:issue is:open');
+    return ghAPI('GET', '/search/issues?q=' + q + '&per_page=5').then(function(data) {
+      if (!data || !data.items) return null;
+      for (var i = 0; i < data.items.length; i++) {
+        if (data.items[i].title === '[subscribe] ' + email) return data.items[i];
+      }
+      return null;
+    });
+  }
+
+  document.getElementById('subSubmit').addEventListener('click', function() {
+    var email = document.getElementById('subEmail').value.trim().toLowerCase();
+    var submitBtn = document.getElementById('subSubmit');
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showSubMsg('msgInvalid', 'error');
+      return;
+    }
+    if (!SUB_CONFIG.token) {
+      showSubMsg('msgNoToken', 'error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    showSubMsg('msgSending', 'info');
+
+    if (subMode === 'subscribe') {
+      findIssueByEmail(email).then(function(existing) {
+        if (existing) {
+          showSubMsg('msgAlready', 'info');
+          submitBtn.disabled = false;
+          return;
+        }
+        return ghAPI('POST', '/repos/' + SUB_CONFIG.owner + '/' + SUB_CONFIG.repo + '/issues', {
+          title: '[subscribe] ' + email,
+          body: 'Subscribed at: ' + new Date().toISOString() + '\nSource: ' + location.href,
+          labels: ['subscribe']
+        }).then(function(res) {
+          if (res && res.id) {
+            showSubMsg('msgSuccess', 'success');
+            document.getElementById('subEmail').value = '';
+          } else {
+            showSubMsg('msgError', 'error');
+          }
+          submitBtn.disabled = false;
+        });
+      }).catch(function() {
+        showSubMsg('msgError', 'error');
+        submitBtn.disabled = false;
+      });
+
+    } else {
+      findIssueByEmail(email).then(function(issue) {
+        if (!issue) {
+          showSubMsg('msgNotFound', 'error');
+          submitBtn.disabled = false;
+          return;
+        }
+        return ghAPI('PATCH', '/repos/' + SUB_CONFIG.owner + '/' + SUB_CONFIG.repo + '/issues/' + issue.number, {
+          state: 'closed'
+        }).then(function() {
+          showSubMsg('msgUnsubSuccess', 'success');
+          document.getElementById('subEmail').value = '';
+          submitBtn.disabled = false;
+        });
+      }).catch(function() {
+        showSubMsg('msgError', 'error');
+        submitBtn.disabled = false;
+      });
+    }
+  });
+
+  // Allow Enter key to submit
+  document.getElementById('subEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('subSubmit').click();
+  });
+
+  // ESC closes subscribe modal too
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('subModal').classList.contains('open')) {
+      closeSubModal();
+    }
+  });
+
+  // Update subscribe button text on language change (hook into existing setLang)
+  var origSetLang = setLang;
+  setLang = function(lang) {
+    origSetLang(lang);
+    document.getElementById('subscribeBtnText').textContent = st('btnFollow');
+  };
 
 })();

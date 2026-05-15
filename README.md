@@ -78,6 +78,17 @@ py -m http.server 8000
 4. 若更新简历等附件，请将文件放到 `database/documents/` 并同步更新 JSON 中的路径。
 5. 站点图标为 `favicon.svg`，可直接替换。
 
+## 订阅功能配置（4 步）
+
+1. 生成一个 GitHub PAT（仅授予本仓库 Issues 读写权限），并写入订阅配置里的 `SUB_CONFIG.token`。配置位置见 [style/chronicle.js](style/chronicle.js#L635-L787)。
+2. 确保仓库存在 `subscribe` 标签（用于标记订阅 Issue）。
+3. 在仓库 Settings -> Secrets and variables -> Actions 中新增以下 Secrets：
+   - `SMTP_HOST`
+   - `SMTP_PORT`
+   - `SMTP_USER`
+   - `SMTP_PASS`
+4. 在 GitHub Actions 里手动触发通知工作流 [ .github/workflows/notify-subscribers.yml ](.github/workflows/notify-subscribers.yml)，填写邮件标题与内容即可群发给订阅者。
+
 ## 部署说明
 
 推荐使用 GitHub Pages 托管，当前仓库结构可直接部署。

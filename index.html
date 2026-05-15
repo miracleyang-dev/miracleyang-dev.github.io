@@ -40,6 +40,12 @@
   </div>
 
   <footer class="site-footer">
+    <div class="subscribe-area">
+      <button class="subscribe-btn" id="subscribeBtn">
+        <span class="subscribe-icon">&#9993;</span>
+        <span class="subscribe-text" id="subscribeBtnText">Follow</span>
+      </button>
+    </div>
     <div class="footer-ornament">
       <span class="line"></span>
       <span class="diamond"></span>
@@ -57,6 +63,23 @@
     <div class="modal-meta" id="modalMeta"></div>
     <div class="modal-body" id="modalBody"></div>
     <div class="modal-tags" id="modalTags"></div>
+  </div>
+</div>
+
+<!-- Subscribe modal -->
+<div class="modal-overlay" id="subModal">
+  <div class="modal-content sub-modal-box">
+    <button class="modal-close" id="subModalClose">&#10005;</button>
+    <h2 class="modal-title" id="subModalTitle">Follow</h2>
+    <p class="sub-modal-desc" id="subModalDesc"></p>
+    <div class="sub-form" id="subForm">
+      <input type="email" class="sub-input" id="subEmail" placeholder="your@email.com" autocomplete="email">
+      <button class="sub-submit" id="subSubmit"></button>
+    </div>
+    <div class="sub-msg" id="subMsg"></div>
+    <div class="sub-toggle-mode">
+      <button class="sub-mode-link" id="subToggleMode"></button>
+    </div>
   </div>
 </div>
 
