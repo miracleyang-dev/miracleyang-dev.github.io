@@ -32,11 +32,15 @@
 ├─ style/
 │  ├─ chronicle.css          # 样式文件
 │  └─ chronicle.js           # 渲染逻辑与交互
-└─ database/
-   ├─ profile.json           # 站点与个人信息、文档链接
-   ├─ vocation.json          # 属性、进度、典籍、任务目标
-   ├─ being.json             # 随笔、记录、成就
-   └─ documents/             # 附件（如简历 PDF）
+├─ database/
+│  ├─ profile.json           # 站点与个人信息、文档链接
+│  ├─ vocation.json          # 属性、进度、典籍、任务目标
+│  ├─ being.json             # 随笔、记录、成就
+│  ├─ notify-template.txt    # 邮件通知模板
+│  └─ documents/             # 附件（如简历 PDF）
+└─ .github/
+   └─ workflows/
+      └─ notify-subscribers.yml  # 订阅者邮件通知工作流
 ```
 
 ## 模块说明
@@ -78,16 +82,29 @@ py -m http.server 8000
 4. 若更新简历等附件，请将文件放到 `database/documents/` 并同步更新 JSON 中的路径。
 5. 站点图标为 `favicon.svg`，可直接替换。
 
-## 订阅功能配置（4 步）
+## 订阅功能配置
 
-1. 生成一个 GitHub PAT（仅授予本仓库 Issues 读写权限），并写入订阅配置里的 `SUB_CONFIG.token`。配置位置见 [style/chronicle.js](style/chronicle.js#L635-L787)。
-2. 确保仓库存在 `subscribe` 标签（用于标记订阅 Issue）。
-3. 在仓库 Settings -> Secrets and variables -> Actions 中新增以下 Secrets：
+订阅系统通过 Cloudflare Worker 代理 GitHub API，避免在前端暴露 Token。
+
+### 架构
+
+```
+用户输入邮箱 → 前端调用 Cloudflare Worker → Worker 持有 PAT 调用 GitHub API → 创建 Issue 记录订阅
+手动触发 Actions → 读取订阅 Issues → SMTP 群发邮件通知
+```
+
+### 配置步骤
+
+1. **生成 GitHub PAT**：GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens，仅授予本仓库 Issues 读写权限。
+2. **部署 Cloudflare Worker**：在 Cloudflare Dashboard 创建 Worker（如 `chronicle-sub`），部署代理脚本，并在 Worker 的环境变量中添加 `GITHUB_PAT`（值为上一步生成的 PAT）。
+3. **配置前端**：在 [style/chronicle.js](style/chronicle.js) 中将 `SUB_CONFIG.workerUrl` 设为你的 Worker URL。
+4. **确保仓库标签**：仓库需存在 `subscribe` 标签（用于标记订阅 Issue）。
+5. **配置邮件通知**：在仓库 Settings → Secrets and variables → Actions 中新增：
    - `SMTP_HOST`
    - `SMTP_PORT`
    - `SMTP_USER`
    - `SMTP_PASS`
-4. 在 GitHub Actions 里手动触发通知工作流 [ .github/workflows/notify-subscribers.yml ](.github/workflows/notify-subscribers.yml)，填写邮件标题与内容即可群发给订阅者。
+6. **发送通知**：在 GitHub Actions 中手动触发 [notify-subscribers.yml](.github/workflows/notify-subscribers.yml)，填写邮件标题与内容即可群发。
 
 ## 部署说明
 

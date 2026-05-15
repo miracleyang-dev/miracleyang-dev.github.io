@@ -636,7 +636,7 @@ const UI_TEXT = {
   var SUB_CONFIG = {
     owner: 'miracleyang-dev',
     repo: 'miracleyang-dev.github.io',
-    // Cloudflare Worker proxy URL
+    // Cloudflare Worker proxy URL (holds PAT securely, never expose token in frontend)
     workerUrl: 'https://chronicle-sub.13235595638.workers.dev'
   };
 
@@ -655,7 +655,7 @@ const UI_TEXT = {
     msgAlready: { en: 'This email is already subscribed.', zh: '该邮箱已经订阅过了。' },
     msgNotFound: { en: 'This email is not subscribed.', zh: '该邮箱没有订阅记录。' },
     msgInvalid: { en: 'Please enter a valid email address.', zh: '请输入有效的邮箱地址。' },
-    msgNoToken: { en: 'Subscribe service is not configured yet.', zh: '订阅服务尚未配置。' },
+    msgNoWorker: { en: 'Subscribe service is not configured yet.', zh: '订阅服务尚未配置。' },
     msgError: { en: 'Something went wrong. Please try again later.', zh: '出了点问题，请稍后再试。' },
     msgSending: { en: 'Processing...', zh: '处理中...' }
   };
@@ -747,7 +747,7 @@ const UI_TEXT = {
       return;
     }
     if (!SUB_CONFIG.workerUrl) {
-      showSubMsg('msgNoToken', 'error');
+      showSubMsg('msgNoWorker', 'error');
       return;
     }
 
