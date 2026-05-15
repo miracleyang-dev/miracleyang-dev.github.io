@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Install dependencies
         run: npm install nodemailer
@@ -54,6 +54,24 @@ jobs:
             const subject = subjectMatch ? subjectMatch[1].trim() : '';
             const body = parts.slice(1).join('\n\n').trim();
             return { subject, body };
+          }
+
+          function escapeHtml(text) {
+            return (text || '').replace(/[&<>\"]/g, (ch) => {
+              switch (ch) {
+                case '&': return '&amp;';
+                case '<': return '&lt;';
+                case '>': return '&gt;';
+                case '"': return '&quot;';
+                default: return ch;
+              }
+            });
+          }
+
+          function toHtml(text) {
+            const escaped = escapeHtml(text);
+            const withLinks = escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1">$1</a>');
+            return withLinks.replace(/\r?\n/g, '<br>');
           }
 
           function parseEmail(title) {
@@ -89,6 +107,7 @@ jobs:
             const template = readTemplate('.github/workflows/notify-template.txt');
             const subject = process.env.EMAIL_SUBJECT || template.subject || 'Chronicle Update';
             const body = process.env.EMAIL_BODY || template.body || '';
+            const html = toHtml(body);
             const smtpPort = Number(process.env.SMTP_PORT || 465);
 
             const emails = await listSubscribers();
@@ -113,7 +132,8 @@ jobs:
               to: process.env.SMTP_USER,
               bcc: emails,
               subject,
-              text: body
+              text: body,
+              html
             });
 
             console.log(`Sent to ${emails.length} subscribers.`);

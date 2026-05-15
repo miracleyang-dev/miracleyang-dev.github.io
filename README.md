@@ -106,6 +106,7 @@ py -m http.server 8000
    - `SMTP_PASS`
 6. **发送通知**：在 GitHub Actions 中手动触发 [notify-subscribers.yml](.github/workflows/notify-subscribers.yml)，填写邮件标题与内容即可群发。
    默认模板在 [.github/workflows/notify-template.txt](.github/workflows/notify-template.txt)（首行 Subject，空行后正文）。
+   邮件会同时发送纯文本与 HTML，链接会自动转换为可点击的 URL。
 
 ## 部署说明
 
