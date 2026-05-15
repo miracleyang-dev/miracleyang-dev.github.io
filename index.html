@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<!-- THEME & LANG TOGGLES -->
+<!-- THEME & LANG TOGGLES (top-left) -->
 <button class="theme-toggle" id="themeToggle" title="Toggle theme">
   <span class="toggle-icon">&#9789;</span>
 </button>
@@ -19,6 +19,12 @@
   <span class="lang-option active" data-lang="en">EN</span>
   <span class="lang-divider">/</span>
   <span class="lang-option" data-lang="zh">&#20013;</span>
+</button>
+
+<!-- SUBSCRIBE BUTTON (top-right) -->
+<button class="subscribe-btn-top" id="subscribeBtn" title="Subscribe">
+  <span class="subscribe-icon">&#9993;</span>
+  <span class="subscribe-text" id="subscribeBtnText">Subscribe</span>
 </button>
 
 <div class="chronicle-app">
@@ -40,12 +46,6 @@
   </div>
 
   <footer class="site-footer">
-    <div class="subscribe-area">
-      <button class="subscribe-btn" id="subscribeBtn">
-        <span class="subscribe-icon">&#9993;</span>
-        <span class="subscribe-text" id="subscribeBtnText">Follow</span>
-      </button>
-    </div>
     <div class="footer-ornament">
       <span class="line"></span>
       <span class="diamond"></span>
@@ -70,7 +70,7 @@
 <div class="modal-overlay" id="subModal">
   <div class="modal-content sub-modal-box">
     <button class="modal-close" id="subModalClose">&#10005;</button>
-    <h2 class="modal-title" id="subModalTitle">Follow</h2>
+    <h2 class="modal-title" id="subModalTitle">Subscribe</h2>
     <p class="sub-modal-desc" id="subModalDesc"></p>
     <div class="sub-form" id="subForm">
       <input type="email" class="sub-input" id="subEmail" placeholder="your@email.com" autocomplete="email">

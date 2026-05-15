@@ -641,17 +641,17 @@ const UI_TEXT = {
   };
 
   var subTexts = {
-    titleSubscribe: { en: 'Follow', zh: '关注' },
-    titleUnsubscribe: { en: 'Unfollow', zh: '取消关注' },
+    titleSubscribe: { en: 'Subscribe', zh: '订阅' },
+    titleUnsubscribe: { en: 'Unsubscribe', zh: '取消订阅' },
     descSubscribe: { en: 'Enter your email to get notified when new content is published.', zh: '留下邮箱，有新内容更新时会收到通知。' },
-    descUnsubscribe: { en: 'Enter the email you subscribed with to unfollow.', zh: '输入订阅时使用的邮箱来取消关注。' },
+    descUnsubscribe: { en: 'Enter the email you subscribed with to unsubscribe.', zh: '输入订阅时使用的邮箱来取消订阅。' },
     btnSubscribe: { en: 'Subscribe', zh: '订阅' },
     btnUnsubscribe: { en: 'Unsubscribe', zh: '取消订阅' },
-    btnFollow: { en: 'Follow', zh: '关注' },
-    switchToUnsub: { en: 'Want to unsubscribe?', zh: '想取消关注？' },
-    switchToSub: { en: 'Want to subscribe?', zh: '想要关注？' },
+    btnSubscribeNav: { en: 'Subscribe', zh: '订阅' },
+    switchToUnsub: { en: 'Want to unsubscribe?', zh: '想取消订阅？' },
+    switchToSub: { en: 'Want to subscribe?', zh: '想要订阅？' },
     msgSuccess: { en: 'Subscribed! You will be notified of updates.', zh: '订阅成功！有更新时会通知你。' },
-    msgUnsubSuccess: { en: 'Unsubscribed. You will no longer receive notifications.', zh: '已取消关注，后续不会再收到通知。' },
+    msgUnsubSuccess: { en: 'Unsubscribed. You will no longer receive notifications.', zh: '已取消订阅，后续不会再收到通知。' },
     msgAlready: { en: 'This email is already subscribed.', zh: '该邮箱已经订阅过了。' },
     msgNotFound: { en: 'This email is not subscribed.', zh: '该邮箱没有订阅记录。' },
     msgInvalid: { en: 'Please enter a valid email address.', zh: '请输入有效的邮箱地址。' },
@@ -670,7 +670,7 @@ const UI_TEXT = {
     document.getElementById('subModalDesc').textContent = st(isSub ? 'descSubscribe' : 'descUnsubscribe');
     document.getElementById('subSubmit').textContent = st(isSub ? 'btnSubscribe' : 'btnUnsubscribe');
     document.getElementById('subToggleMode').textContent = st(isSub ? 'switchToUnsub' : 'switchToSub');
-    document.getElementById('subscribeBtnText').textContent = st('btnFollow');
+    document.getElementById('subscribeBtnText').textContent = st('btnSubscribeNav');
     document.getElementById('subMsg').textContent = '';
     document.getElementById('subMsg').className = 'sub-msg';
     document.getElementById('subEmail').value = '';
@@ -816,7 +816,7 @@ const UI_TEXT = {
   var origSetLang = setLang;
   setLang = function(lang) {
     origSetLang(lang);
-    document.getElementById('subscribeBtnText').textContent = st('btnFollow');
+    document.getElementById('subscribeBtnText').textContent = st('btnSubscribeNav');
   };
 
 })();

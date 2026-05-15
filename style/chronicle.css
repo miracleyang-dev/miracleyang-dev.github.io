@@ -122,9 +122,9 @@ a:hover { color: var(--text-primary); }
   font-style: italic; letter-spacing: 0.05em;
 }
 
-/* === THEME TOGGLE === */
+/* === THEME TOGGLE (top-left) === */
 .theme-toggle {
-  position: fixed; top: 20px; right: 20px; z-index: 1000;
+  position: fixed; top: 20px; left: 20px; z-index: 1000;
   width: 44px; height: 44px;
   background: var(--bg-panel); border: 1px solid var(--border-main);
   border-radius: 6px;
@@ -134,9 +134,9 @@ a:hover { color: var(--text-primary); }
 }
 .theme-toggle:hover { border-color: var(--border-accent); color: var(--accent-gold); }
 
-/* === LANG TOGGLE === */
+/* === LANG TOGGLE (top-left, next to theme) === */
 .lang-toggle {
-  position: fixed; top: 20px; right: 74px; z-index: 1000;
+  position: fixed; top: 20px; left: 74px; z-index: 1000;
   display: flex; align-items: center;
   background: var(--bg-panel); border: 1px solid var(--border-main);
   border-radius: 6px;
@@ -732,27 +732,25 @@ a:hover { color: var(--text-primary); }
   color: var(--text-muted); letter-spacing: 0.05em;
 }
 
-/* Subscribe button area */
-.subscribe-area {
-  margin-bottom: 18px;
-}
-
-.subscribe-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-display); font-size: 0.78rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 10px 28px;
-  background: transparent;
+/* === TOP-RIGHT SUBSCRIBE BUTTON === */
+.subscribe-btn-top {
+  position: fixed; top: 20px; right: 20px; z-index: 1000;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0 14px; height: 44px;
+  background: var(--bg-panel);
   border: 1px solid var(--border-accent);
+  border-radius: 6px;
   color: var(--accent-gold);
   cursor: pointer; transition: all 0.3s;
 }
-.subscribe-btn:hover {
+.subscribe-btn-top:hover {
   background: var(--bg-card);
   border-color: var(--accent-gold);
   box-shadow: 0 0 12px rgba(200,168,78,0.15);
 }
-.subscribe-icon { font-size: 1rem; }
+.subscribe-btn-top .subscribe-icon { font-size: 1rem; }
 
 .footer-ornament { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; opacity: var(--ornament-opacity); }
 .footer-ornament .line { width: 40px; height: 1px; background: var(--border-gold); }
@@ -963,10 +961,13 @@ a:hover { color: var(--text-primary); }
   .site-subtitle { font-size: 0.85rem; padding: 0 12px; }
   .header-ornament .line { width: 50px; }
 
-  /* -- Toggle buttons -- */
+  /* -- Toggle buttons (top-left) -- */
   .theme-toggle, .lang-toggle { height: 34px; top: 12px; }
-  .theme-toggle { right: 12px; width: 34px; font-size: 1rem; border-radius: 6px; }
-  .lang-toggle { right: 52px; padding: 0 8px; font-size: 0.68rem; width: auto; border-radius: 6px; }
+  .theme-toggle { left: 12px; width: 34px; font-size: 1rem; border-radius: 6px; }
+  .lang-toggle { left: 52px; padding: 0 8px; font-size: 0.68rem; width: auto; border-radius: 6px; }
+  /* -- Subscribe button (top-right) -- */
+  .subscribe-btn-top { height: 34px; top: 12px; right: 12px; font-size: 0.65rem; padding: 0 10px; gap: 4px; }
+  .subscribe-btn-top .subscribe-icon { font-size: 0.85rem; }
   /* -- Tab navigation: clean horizontal main tabs + sub-tab row -- */
   .tab-navigation {
     flex-direction: row; flex-wrap: wrap;
@@ -1137,7 +1138,7 @@ a:hover { color: var(--text-primary); }
   /* -- Footer -- */
   .site-footer { padding: 24px 16px; font-size: 0.65rem; }
   .footer-ornament .line { width: 30px; }
-  .subscribe-btn { font-size: 0.72rem; padding: 9px 22px; }
+  .subscribe-btn-top { font-size: 0.62rem; padding: 0 8px; }
   .sub-modal-box { margin: 0 10px; }
   .sub-input { font-size: 0.78rem; padding: 9px 12px; }
   .sub-submit { font-size: 0.7rem; padding: 9px 16px; }
