@@ -636,8 +636,8 @@ const UI_TEXT = {
   var SUB_CONFIG = {
     owner: 'miracleyang-dev',
     repo: 'miracleyang-dev.github.io',
-    // TODO: Replace with your fine-grained PAT (only needs Issues read/write on this repo)
-    token: ''
+    // Cloudflare Worker proxy URL
+    workerUrl: 'https://chronicle-sub.13235595638.workers.dev'
   };
 
   var subTexts = {
@@ -707,12 +707,11 @@ const UI_TEXT = {
   }
 
   function ghAPI(method, path, body) {
-    var url = 'https://api.github.com' + path;
+    var url = SUB_CONFIG.workerUrl + path;
     var opts = {
       method: method,
       headers: {
-        'Accept': 'application/vnd.github+json',
-        'Authorization': 'Bearer ' + SUB_CONFIG.token
+        'Accept': 'application/vnd.github+json'
       }
     };
     if (body) {
@@ -747,7 +746,7 @@ const UI_TEXT = {
       showSubMsg('msgInvalid', 'error');
       return;
     }
-    if (!SUB_CONFIG.token) {
+    if (!SUB_CONFIG.workerUrl) {
       showSubMsg('msgNoToken', 'error');
       return;
     }
