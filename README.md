@@ -36,10 +36,10 @@
 │  ├─ profile.json           # 站点与个人信息、文档链接
 │  ├─ vocation.json          # 属性、进度、典籍、任务目标
 │  ├─ being.json             # 随笔、记录、成就
-│  ├─ notify-template.txt    # 邮件通知模板
 │  └─ documents/             # 附件（如简历 PDF）
 └─ .github/
    └─ workflows/
+      ├─ notify-template.txt  # 邮件通知模板
       └─ notify-subscribers.yml  # 订阅者邮件通知工作流
 ```
 
@@ -105,6 +105,7 @@ py -m http.server 8000
    - `SMTP_USER`
    - `SMTP_PASS`
 6. **发送通知**：在 GitHub Actions 中手动触发 [notify-subscribers.yml](.github/workflows/notify-subscribers.yml)，填写邮件标题与内容即可群发。
+   默认模板在 [.github/workflows/notify-template.txt](.github/workflows/notify-template.txt)（首行 Subject，空行后正文）。
 
 ## 部署说明
 

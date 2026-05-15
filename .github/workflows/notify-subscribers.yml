@@ -19,6 +19,9 @@ jobs:
       issues: read
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -83,7 +86,7 @@ jobs:
           }
 
           async function main() {
-            const template = readTemplate('database/notify-template.txt');
+            const template = readTemplate('.github/workflows/notify-template.txt');
             const subject = process.env.EMAIL_SUBJECT || template.subject || 'Chronicle Update';
             const body = process.env.EMAIL_BODY || template.body || '';
             const smtpPort = Number(process.env.SMTP_PORT || 465);
