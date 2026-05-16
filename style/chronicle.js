@@ -1,83 +1,71 @@
 ﻿/* =====================================================================
-   SITE_DATA - Edit content here
-   ===================================================================== */
-
-var SITE_DATA = {
-  site: { title: 'Chronicle', subtitle: { en: '', zh: '' }, lastUpdate: '' },
-  character: { links: [] },
-  stats: [],
-  files: [],
-  progress: [],
-  targets: [],
-  repos: [],
-  essays: [],
-  records: [],
-  achievements: []
-};
-
-function loadSiteData() {
-  var files = [
-    'database/profile.json',
-    'database/vocation.json',
-    'database/being.json',
-  ];
-
-  return Promise.all(files.map(function(path) {
-    return fetch(path).then(function(resp) {
-      if (!resp.ok) throw new Error('Failed to load ' + path);
-      return resp.json();
-    });
-  })).then(function(parts) {
-    SITE_DATA = Object.assign({}, SITE_DATA, parts[0], parts[1], parts[2]);
-  });
-}
-
-const UI_TEXT = {
-  tabProfile: { en: "Profile", zh: "个人" },
-  tabVocation: { en: "Vocation", zh: "事业" },
-  tabBeing: { en: "Being", zh: "生活" },
-  subCharacter: { en: "Character", zh: "角色" },
-  subDocuments: { en: "Documents", zh: "文档" },
-  subStats: { en: "Stats", zh: "属性" },
-  subProgress: { en: "Progress", zh: "进度" },
-  subQuestLog: { en: "Quest Log", zh: "任务日志" },
-  subCodex: { en: "Codex", zh: "典籍" },
-  subEssays: { en: "Essays", zh: "随笔" },
-  subAchievements: { en: "Achievements", zh: "成就" },
-  subRecords: { en: "Records", zh: "札记" },
-  sectionCharacter: { en: "Character", zh: "角色" },
-  sectionDocuments: { en: "Documents", zh: "文档" },
-  sectionStats: { en: "Stats", zh: "属性" },
-  sectionProgress: { en: "Progress", zh: "进度" },
-  sectionQuestLog: { en: "Quest Log", zh: "任务日志" },
-  sectionCodex: { en: "Codex", zh: "典籍" },
-  sectionEssays: { en: "Essays", zh: "随笔" },
-  sectionAchievements: { en: "Achievements", zh: "成就" },
-  sectionRecords: { en: "Records", zh: "札记" },
-  statusActive: { en: "active", zh: "进行中" },
-  statusPending: { en: "pending", zh: "未" },
-  statusCompleted: { en: "completed", zh: "已完成" },
-  statusInProgress: { en: "in-progress", zh: "进行中" },
-  statusOvercome: { en: "overcome", zh: "已克服" },
-  targetMain: { en: "Main", zh: "主线" },
-  targetSide: { en: "Side", zh: "支线" },
-  statBirthday: { en: "DOB", zh: "生日" },
-  statGender: { en: "SEX", zh: "性别" },
-  statMBTI: { en: "MBTI", zh: "MBTI" },
-  footerUpdate: { en: "Last updated: ", zh: "最近更新：" },
-  severityHigh: { en: "high", zh: "高" },
-  severityMedium: { en: "medium", zh: "中" },
-  severityLow: { en: "low", zh: "低" },
-};
-
-
-/* =====================================================================
-   RENDER ENGINE
+   CHRONICLE — Single IIFE, no globals
    ===================================================================== */
 
 (function() {
   'use strict';
 
+  // ---- Site data (populated by loadSiteData) ----
+  var SITE_DATA = {
+    site: { title: 'Chronicle', subtitle: { en: '', zh: '' }, lastUpdate: '' },
+    character: { links: [] },
+    stats: [], files: [], progress: [],
+    targets: [], repos: [], essays: [],
+    records: [], achievements: []
+  };
+
+  function loadSiteData() {
+    var paths = [
+      'database/profile.json',
+      'database/vocation.json',
+      'database/being.json'
+    ];
+    return Promise.all(paths.map(function(p) {
+      return fetch(p).then(function(r) {
+        if (!r.ok) throw new Error('Failed to load ' + p);
+        return r.json();
+      });
+    })).then(function(parts) {
+      SITE_DATA = Object.assign({}, SITE_DATA, parts[0], parts[1], parts[2]);
+    });
+  }
+
+  // ---- UI text (bilingual) ----
+  var UI_TEXT = {
+    tabProfile:    { en: "Profile",    zh: "个人" },
+    tabVocation:   { en: "Vocation",   zh: "事业" },
+    tabBeing:      { en: "Being",      zh: "生活" },
+    subCharacter:  { en: "Character",  zh: "角色" },
+    subDocuments:  { en: "Documents",  zh: "文档" },
+    subStats:      { en: "Stats",      zh: "属性" },
+    subProgress:   { en: "Progress",   zh: "进度" },
+    subQuestLog:   { en: "Quest Log",  zh: "任务日志" },
+    subCodex:      { en: "Codex",      zh: "典籍" },
+    subEssays:     { en: "Essays",     zh: "随笔" },
+    subAchievements: { en: "Achievements", zh: "成就" },
+    subRecords:    { en: "Records",    zh: "札记" },
+    sectionCharacter:    { en: "Character",    zh: "角色" },
+    sectionDocuments:    { en: "Documents",    zh: "文档" },
+    sectionStats:        { en: "Stats",        zh: "属性" },
+    sectionProgress:     { en: "Progress",     zh: "进度" },
+    sectionQuestLog:     { en: "Quest Log",    zh: "任务日志" },
+    sectionCodex:        { en: "Codex",        zh: "典籍" },
+    sectionEssays:       { en: "Essays",       zh: "随笔" },
+    sectionAchievements: { en: "Achievements", zh: "成就" },
+    sectionRecords:      { en: "Records",      zh: "札记" },
+    statusActive:    { en: "active",    zh: "进行中" },
+    statusPending:   { en: "pending",   zh: "未" },
+    statusCompleted: { en: "completed", zh: "已完成" },
+    targetMain: { en: "Main", zh: "主线" },
+    targetSide: { en: "Side", zh: "支线" },
+    statBirthday: { en: "DOB",  zh: "生日" },
+    statGender:   { en: "SEX",  zh: "性别" },
+    statMBTI:     { en: "MBTI", zh: "MBTI" },
+    footerUpdate: { en: "Last updated: ", zh: "最近更新：" },
+    exploring:    { en: "Exploring", zh: "探索中" }
+  };
+
+  // ---- State ----
   var currentLang = localStorage.getItem('chronicle-lang') || 'en';
   var currentMainTab = 'profile';
   var currentSubTab = null; // null means show all sub-tabs combined
@@ -142,7 +130,7 @@ const UI_TEXT = {
     tabs.forEach(function(tab) {
       var mainBtn = el('button', 'tab-btn' + (currentMainTab === tab.id ? ' active' : ''));
       mainBtn.dataset.maintab = tab.id;
-      mainBtn.innerHTML = t(tab.label);
+      mainBtn.textContent = t(tab.label);
       nav.appendChild(mainBtn);
 
       tab.subs.forEach(function(s) {
@@ -331,7 +319,7 @@ const UI_TEXT = {
     for (var cat in grouped) {
       html += '<div class="skill-category-title">' + cat + '</div>';
       grouped[cat].forEach(function(s) {
-        var levelText = s.level === 0 ? 'Exploring' : (s.level + '/100');
+        var levelText = s.level === 0 ? t(UI_TEXT.exploring) : (s.level + '/100');
         var dateText = s.date ? formatYearMonth(s.date) : '';
         html += '<div class="skill-item">' +
           '<div class="skill-top-row">' +
@@ -361,11 +349,12 @@ const UI_TEXT = {
     'Rust': '#dea584', 'Go': '#00ADD8', 'C++': '#f34b7d', 'C': '#555555',
     'Java': '#b07219', 'HTML': '#e34c26', 'CSS': '#563d7c', 'Shell': '#89e051',
     'Ruby': '#701516', 'Swift': '#F05138', 'Kotlin': '#A97BFF', 'Dart': '#00B4AB',
-    'Lua': '#000080', 'Vue': '#41b883', 'Svelte': '#ff3e00'
+    'Lua': '#000080', 'Vue': '#41b883', 'Svelte': '#ff3e00',
+    'Jupyter Notebook': '#DA5B0B', 'TeX': '#3D6117'
   };
 
   function renderCodex() {
-    var repos = (SITE_DATA.repos || []).filter(function(r) { return r.featured; }).slice(0, 20);
+    var repos = SITE_DATA.repos || [];
 
     var html = repos.map(function(repo) {
       var langColor = LANG_COLORS[repo.language] || '#8a7e6e';
@@ -580,7 +569,11 @@ const UI_TEXT = {
   });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-      closeModal();
+      if (document.getElementById('subModal').classList.contains('open')) {
+        closeSubModal();
+      } else {
+        closeModal();
+      }
     }
   });
 
@@ -617,6 +610,7 @@ const UI_TEXT = {
     renderHeader();
     buildNav();
     renderContent();
+    updateSubscribeBtnText();
   }
 
   langToggle.addEventListener('click', function() {
@@ -657,7 +651,8 @@ const UI_TEXT = {
     msgInvalid: { en: 'Please enter a valid email address.', zh: '请输入有效的邮箱地址。' },
     msgNoWorker: { en: 'Subscribe service is not configured yet.', zh: '订阅服务尚未配置。' },
     msgError: { en: 'Something went wrong. Please try again later.', zh: '出了点问题，请稍后再试。' },
-    msgSending: { en: 'Processing...', zh: '处理中...' }
+    msgSending: { en: 'Processing...', zh: '处理中...' },
+    vpnHint: { en: '* Requires VPN in mainland China', zh: '* 订阅功能需科学上网' }
   };
 
   var subMode = 'subscribe'; // 'subscribe' or 'unsubscribe'
@@ -674,6 +669,7 @@ const UI_TEXT = {
     document.getElementById('subMsg').textContent = '';
     document.getElementById('subMsg').className = 'sub-msg';
     document.getElementById('subEmail').value = '';
+    document.getElementById('subVpnHint').textContent = st('vpnHint');
   }
 
   function openSubModal() {
@@ -805,18 +801,8 @@ const UI_TEXT = {
     if (e.key === 'Enter') document.getElementById('subSubmit').click();
   });
 
-  // ESC closes subscribe modal too
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('subModal').classList.contains('open')) {
-      closeSubModal();
-    }
-  });
-
-  // Update subscribe button text on language change (hook into existing setLang)
-  var origSetLang = setLang;
-  setLang = function(lang) {
-    origSetLang(lang);
+  function updateSubscribeBtnText() {
     document.getElementById('subscribeBtnText').textContent = st('btnSubscribeNav');
-  };
+  }
 
 })();

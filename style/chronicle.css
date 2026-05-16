@@ -482,39 +482,6 @@ a:hover { color: var(--text-primary); }
 
 /* === RECORDS / NOTES === */
 
-.record-card {
-  padding: 16px 20px; background: var(--bg-card);
-  border: 1px solid var(--border-main); transition: all 0.2s;
-  cursor: pointer;
-}
-.record-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
-.record-card.expanded .record-note { display: block; }
-
-.record-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
-
-.record-type {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 2px 8px; border: 1px solid var(--accent-gold-dim);
-  color: var(--accent-gold); letter-spacing: 0.05em; white-space: nowrap;
-}
-
-.record-title {
-  font-family: var(--font-display); font-size: 1rem;
-  font-weight: 600; color: var(--text-primary);
-}
-
-.record-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
-.record-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
-
-.record-note {
-  display: none; margin-top: 10px; padding-top: 10px;
-  border-top: 1px solid var(--border-main);
-  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;
-}
-
-/* === LISTS / RECORDS === */
-.lists-list { display: flex; flex-direction: column; gap: 12px; }
-
 .records-list { display: flex; flex-direction: column; gap: 12px; }
 
 .list-card {
@@ -544,25 +511,6 @@ a:hover { color: var(--text-primary); }
 
 .list-date {
   font-family: var(--font-mono); font-size: 0.62rem;
-  color: var(--text-muted); letter-spacing: 0.03em;
-}
-
-.list-count {
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--accent-gold); letter-spacing: 0.03em;
-}
-
-.list-progress { margin-top: 10px; }
-.list-progress-label {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--text-muted); margin-bottom: 4px;
-}
-
-.record-footer {
-  margin-top: 8px; text-align: right;
-}
-.record-date {
-  font-family: var(--font-mono); font-size: 0.65rem;
   color: var(--text-muted); letter-spacing: 0.03em;
 }
 
@@ -678,53 +626,6 @@ a:hover { color: var(--text-primary); }
   color: var(--text-muted);
 }
 
-/* === BLOCKS/STRUGGLES === */
-.struggles-list { display: flex; flex-direction: column; gap: 12px; }
-
-.block-card {
-  position: relative; padding: 18px 20px; background: var(--bg-card);
-  border: 1px solid var(--border-main); transition: all 0.2s;
-}
-.block-card:hover { background: var(--bg-card-hover); }
-
-.block-status-badge {
-  position: absolute; top: 8px; right: 8px;
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 3px 8px; border: 1px solid; letter-spacing: 0.05em;
-  white-space: nowrap; background: var(--bg-panel);
-}
-.block-card.status-in-progress .block-status-badge { color: var(--accent-warm); border-color: var(--accent-warm); }
-.block-card.status-overcome .block-status-badge { color: var(--accent-green); border-color: var(--accent-green); }
-
-.block-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-
-.block-severity {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 2px 8px; border: 1px solid; letter-spacing: 0.05em; white-space: nowrap;
-  text-transform: uppercase;
-}
-.block-severity.high { color: var(--accent-warm); border-color: var(--accent-warm); }
-.block-severity.medium { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
-.block-severity.low { color: var(--accent-green); border-color: var(--accent-green); }
-
-.block-title {
-  font-family: var(--font-display); font-size: 1rem;
-  font-weight: 600; color: var(--text-primary);
-}
-
-.block-desc {
-  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;
-}
-
-.block-footer {
-  margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);
-  text-align: right;
-}
-
-.block-date {
-  font-family: var(--font-mono);
-}
-
 /* === FOOTER === */
 .site-footer {
   text-align: center; padding: 30px 20px;
@@ -807,6 +708,13 @@ a:hover { color: var(--text-primary); }
 .sub-msg.success { color: var(--accent-green); }
 .sub-msg.error { color: var(--accent-warm); }
 .sub-msg.info { color: var(--text-muted); }
+
+.sub-vpn-hint {
+  font-family: var(--font-mono); font-size: 0.64rem;
+  color: var(--text-muted); opacity: 0.7;
+  margin-top: 6px; padding: 0 4px;
+  line-height: 1.4;
+}
 
 .sub-toggle-mode {
   margin-top: 16px; padding-top: 14px;
@@ -940,10 +848,6 @@ a:hover { color: var(--text-primary); }
 .list-item-text {
   flex: 1; font-size: 0.92rem; color: var(--text-primary);
 }
-/* .list-modal-item.done .list-item-text {
-  text-decoration: line-through;
-  color: var(--text-muted);
-} */
 
 .list-item-check {
   font-size: 0.8rem; color: var(--accent-green); flex-shrink: 0;
@@ -1101,20 +1005,12 @@ a:hover { color: var(--text-primary); }
   .list-progress-text { font-size: 0.64rem; }
   .list-date { font-size: 0.58rem; }
 
-  /* -- Records -- */
-  .record-card { padding: 16px 16px; }
-  .record-title { font-size: 0.92rem; }
-  .record-type { font-size: 0.6rem; }
-
   /* -- Achievements -- */
   .achievement-card { padding: 16px 16px; }
   .achievement-title { font-size: 0.92rem; }
   .achievement-status { font-size: 0.58rem; padding: 2px 6px; }
   .achievement-desc { font-size: 0.82rem; padding-left: 16px; }
   .achievement-icon { font-size: 0.72rem; }
-
-  /* -- Blocks/struggles -- */
-  .block-card { padding: 14px 14px; }
 
   /* -- Files -- */
   .file-item { padding: 10px 14px; gap: 10px; }
