@@ -3,7 +3,8 @@
     {
       "date": "2026-04-18",
       "tags": [
-        { "en": "Growth", "zh": "成长" }
+        { "en": "Growth", "zh": "成长" },
+        { "en": "Cognition", "zh": "认知" }
       ],
       "title": {
         "en": "How to Become Better and Stronger",
@@ -16,6 +17,25 @@
       "content": {
         "en": "1. Do not be confined by grand narratives; keep your own agency.\n\n2. Believe that everything that happens can benefit me, and everything can be used by me.\n\n3. Respect statistical patterns, while at the same time firmly believing I am unique.\n\n4. Keep moving forward in environments with no feedback and even negative feedback, and calmly accept life's uncertainty.\n\n5. Consciously control my input.\n\n6. Become anyone you need to be, and bear all due costs willingly.\n\n7. Be able to understand the negation of negation, so I can keep renewing, revising, and growing.\n\nThese are, in my view, indispensable things for a person to gradually become stronger. I will elaborate on each point when I have time.",
         "zh": "1. 不被宏大叙事束缚，守住自我主体性。\n\n2. 相信凡是发生皆有利于我，万物皆可为我所用。\n\n3. 尊重统计规律，同时又坚信自己与众不同。\n\n4. 能够在无反馈乃至负反馈的环境里前行，坦然接受人生的不确定性。\n\n5. 有意识控制自己的输入。\n\n6. 可以成为任何人，并且愿意承担所有应当承担的代价。\n\n7. 能理解否定之否定，可以持续自我更新、修正与成长。\n\n以上就是在我看来一个人慢慢变厉害必不可少的东西，后面有空会逐条详细说说。"
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "tags": [
+        { "en": "Optimization", "zh": "优化" },
+        { "en": "Life", "zh": "生活" }
+      ],
+      "title": {
+        "en": "Break Local Dilemmas, Seek the Global Ideal Life",
+        "zh": "破局部之困，寻全局人生"
+      },
+      "summary": {
+        "en": "Treating goals like optimization reframes life as a search for global optima, encouraging exploration beyond comfort zones.",
+        "zh": "将目标视作优化问题，提醒自己在不断尝试中跳出局部最优，寻找更广阔的人生方向。"
+      },
+      "content": {
+        "en": "By chance, I realize that the pursuit of goals can be regarded as an optimization problem, among which Stochastic Gradient Descent is my favorite.\nWe often settle for the status quo and live a stable life following fixed routines. Even if we make steady progress, we easily fall into local optima, content with temporary ease and ignoring better prospects ahead.\nUnlike rigid thinking, SGD constantly changes directions to explore and adjusts pace gradually, which helps find the global optimum. The same applies to life. Staying in the comfort zone makes us miss countless possibilities, while embracing new things paves diverse paths forward.\nWe ought to adjust ourselves through constant attempts and choices, break free from present limitations, and march toward the life we truly yearn for. Life has no fixed path. Rich experiences will eventually lead us to the most suitable way of living.",
+        "zh": "偶然发现，可以把对目标的追求看做一个优化问题，这就不得不提及其中我最喜欢的随机梯度下降算法。\n\n很多时候我们安于现状，守着眼前安稳日子，就是按照固定思路走，哪怕不断在变好，也很容易就陷入局部最优，满足于眼下的顺遂，却忘了还有更远更好的方向。\n\n而随机梯度下降则不同，经常变换方向试探，慢慢调整步伐，这样更利于寻找全局最优。我觉得做事亦是同理，一成不变待在舒适圈里很容易错过很多，相反地多去接触新事物，倒是可以试着走不一样的路。\n\n我觉得要在不断尝试与取舍中调整状态，跳出眼前的局限，朝着心中真正向往的生活走。人生本就没有固定轨迹，多去经历，或者能找到最适合自己的活法。"
       }
     }
   ],
