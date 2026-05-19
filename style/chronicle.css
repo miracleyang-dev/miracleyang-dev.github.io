@@ -708,10 +708,13 @@ a:hover { color: var(--text-primary); }
 .sub-msg.info { color: var(--text-muted); }
 
 .sub-vpn-hint {
-  font-family: var(--font-mono); font-size: 0.64rem;
-  color: var(--text-muted); opacity: 0.7;
-  margin-top: 6px; padding: 0 4px;
-  line-height: 1.4;
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+  color: var(--accent-warm);
+  margin-top: 8px; padding: 6px 8px;
+  line-height: 1.45;
+  border-left: 2px solid var(--accent-warm);
+  background: rgba(184,92,56,0.1);
+  border-radius: 4px;
 }
 
 .sub-toggle-mode {
@@ -1123,4 +1126,3 @@ a:hover { color: var(--text-primary); }
   .profile-name { font-size: 1.15rem; }
   .avatar-frame { width: 96px; height: 114px; }
 }
-
