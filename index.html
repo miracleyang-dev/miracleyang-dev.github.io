@@ -1,21 +1,29 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chronicle</title>
+<meta name="description" content="Miracle Yang's personal chronicle — essays, records, achievements, and the journey of growth.">
+<meta name="author" content="Miracle Yang">
+<meta property="og:title" content="Chronicle — Miracle Yang">
+<meta property="og:description" content="Essays, records, achievements, and the journey of growth.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://miracleyang.com">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style/chronicle.css">
 </head>
 <body>
 
 <!-- THEME & LANG TOGGLES (top-left) -->
-<button class="theme-toggle" id="themeToggle" title="Toggle theme">
+<button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme">
   <span class="toggle-icon">&#9789;</span>
 </button>
-<button class="lang-toggle" id="langToggle" title="Switch language">
+<button class="lang-toggle" id="langToggle" title="Switch language" aria-label="Switch language between English and Chinese">
   <span class="lang-option active" data-lang="en">EN</span>
   <span class="lang-divider">/</span>
   <span class="lang-option" data-lang="zh">&#20013;</span>
@@ -56,18 +64,19 @@
 </div>
 
 <!-- Post detail modal -->
-<div class="modal-overlay" id="postModal">
+<div class="modal-overlay" id="postModal" role="dialog" aria-modal="true">
   <div class="modal-content">
     <button class="modal-close" id="modalClose">&#10005;</button>
     <h2 class="modal-title" id="modalTitle"></h2>
     <div class="modal-meta" id="modalMeta"></div>
     <div class="modal-body" id="modalBody"></div>
+    <div class="modal-nav" id="modalNav"></div>
     <div class="modal-tags" id="modalTags"></div>
   </div>
 </div>
 
 <!-- Subscribe modal -->
-<div class="modal-overlay" id="subModal">
+<div class="modal-overlay" id="subModal" role="dialog" aria-modal="true">
   <div class="modal-content sub-modal-box">
     <button class="modal-close" id="subModalClose">&#10005;</button>
     <h2 class="modal-title" id="subModalTitle">Subscribe</h2>
@@ -84,6 +93,10 @@
   </div>
 </div>
 
+<!-- Back to top -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&#8593;</button>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@15.0.4/marked.min.js"></script>
 <script src="style/chronicle.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>

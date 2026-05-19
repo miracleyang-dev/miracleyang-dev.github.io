@@ -15,10 +15,11 @@
   };
 
   function loadSiteData() {
+    var v = Date.now();
     var paths = [
-      'database/profile.json',
-      'database/vocation.json',
-      'database/being.json'
+      'database/profile.json?v=' + v,
+      'database/vocation.json?v=' + v,
+      'database/being.json?v=' + v
     ];
     return Promise.all(paths.map(function(p) {
       return fetch(p).then(function(r) {
@@ -70,6 +71,24 @@
   var currentMainTab = 'profile';
   var currentSubTab = null; // null means show all sub-tabs combined
 
+  // ---- Hash routing ----
+  function parseHash() {
+    var hash = location.hash.replace(/^#/, '');
+    if (!hash) return null;
+    var parts = hash.split('/');
+    var validMains = ['profile', 'vocation', 'being'];
+    if (validMains.indexOf(parts[0]) === -1) return null;
+    return { main: parts[0], sub: parts[1] || null };
+  }
+
+  function updateHash() {
+    var hash = '#' + currentMainTab;
+    if (currentSubTab) hash += '/' + currentSubTab;
+    if (location.hash !== hash) {
+      history.replaceState(null, '', hash);
+    }
+  }
+
   function t(val) {
     if (val == null) return '';
     if (typeof val === 'object' && !Array.isArray(val)) {
@@ -77,6 +96,14 @@
     }
     return val;
   }
+
+  function escapeHtml(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // t() + escape for safe innerHTML insertion
+  function te(val) { return escapeHtml(t(val)); }
 
 
   function formatYearMonth(dateStr) {
@@ -149,6 +176,7 @@
       btn.addEventListener('click', function() {
         currentMainTab = btn.dataset.maintab;
         currentSubTab = null; // show all
+        updateHash();
         buildNav();
         renderContent();
       });
@@ -159,6 +187,7 @@
       btn.addEventListener('click', function() {
         currentMainTab = btn.dataset.maintab;
         currentSubTab = btn.dataset.subtab;
+        updateHash();
         buildNav();
         renderContent();
       });
@@ -262,9 +291,9 @@
         detailText = l.url.replace(/^mailto:/, '');
       }
       if (l.type === 'text') {
-        return '<span class="profile-link-text"><span>' + l.icon + '</span> ' + t(l.label) + ': ' + detailText + '</span>';
+        return '<span class="profile-link-text"><span>' + escapeHtml(l.icon) + '</span> ' + te(l.label) + ': ' + escapeHtml(detailText) + '</span>';
       }
-      return '<a href="' + l.url + '" class="profile-link" target="_blank" rel="noopener"><span>' + l.icon + '</span> ' + t(l.label) + ': ' + detailText + '</a>';
+      return '<a href="' + escapeHtml(l.url) + '" class="profile-link" target="_blank" rel="noopener"><span>' + escapeHtml(l.icon) + '</span> ' + te(l.label) + ': ' + escapeHtml(detailText) + '</a>';
     }).join('');
 
     var statsHTML = '<div class="profile-stats">' +
@@ -274,14 +303,14 @@
       '</div>';
 
     document.getElementById('profileCard').innerHTML =
-      '<div class="avatar-frame">' + avatarHTML + '<span class="level-badge">' + t(p.level) + '</span></div>' +
+      '<div class="avatar-frame">' + avatarHTML + '<span class="level-badge">' + te(p.level) + '</span></div>' +
       '<div class="profile-info">' +
         (currentLang === 'zh'
-          ? '<h2 class="profile-name">' + t(p.name) + '</h2>'
-          : '<h2 class="profile-name">' + p.nameEn + '</h2>') +
-        '<p class="profile-title">' + t(p.title) + '</p>' +
+          ? '<h2 class="profile-name">' + te(p.name) + '</h2>'
+          : '<h2 class="profile-name">' + escapeHtml(p.nameEn) + '</h2>') +
+        '<p class="profile-title">' + te(p.title) + '</p>' +
         statsHTML +
-        '<p class="profile-bio">' + t(p.bio) + '</p>' +
+        '<p class="profile-bio">' + te(p.bio) + '</p>' +
         '<div class="profile-links">' + linksHTML + '</div>' +
       '</div>';
   }
@@ -297,9 +326,9 @@
 
     var html = '';
     for (var cat in grouped) {
-      html += '<div class="stat-category-title">' + cat + '</div>';
+      html += '<div class="stat-category-title">' + escapeHtml(cat) + '</div>';
       grouped[cat].forEach(function(s) {
-        html += '<div class="stat-item"><span class="stat-name">' + t(s.name) + '</span>' + starHTML(s.rating) + '</div>';
+        html += '<div class="stat-item"><span class="stat-name">' + te(s.name) + '</span>' + starHTML(s.rating) + '</div>';
       });
     }
 
@@ -317,13 +346,13 @@
 
     var html = '';
     for (var cat in grouped) {
-      html += '<div class="skill-category-title">' + cat + '</div>';
+      html += '<div class="skill-category-title">' + escapeHtml(cat) + '</div>';
       grouped[cat].forEach(function(s) {
-        var levelText = s.level === 0 ? t(UI_TEXT.exploring) : (s.level + '/100');
+        var levelText = s.level === 0 ? te(UI_TEXT.exploring) : (s.level + '/100');
         var dateText = s.date ? formatYearMonth(s.date) : '';
         html += '<div class="skill-item">' +
           '<div class="skill-top-row">' +
-            '<span class="skill-name">' + t(s.name) + '</span>' +
+            '<span class="skill-name">' + te(s.name) + '</span>' +
             '<span class="skill-level">' + levelText + '</span>' +
           '</div>' +
           '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + s.level + '"></div></div>' +
@@ -359,16 +388,16 @@
     var html = repos.map(function(repo) {
       var langColor = LANG_COLORS[repo.language] || '#8a7e6e';
       var dateHTML = repo.date ? '<span class="codex-date">' + formatYearMonth(repo.date) + '</span>' : '';
-      return '<a href="' + repo.url + '" class="codex-card" target="_blank" rel="noopener">' +
+      return '<a href="' + escapeHtml(repo.url) + '" class="codex-card" target="_blank" rel="noopener">' +
         '<div class="codex-header">' +
           '<span class="codex-icon">\u{1F4DC}</span>' +
-          '<span class="codex-name">' + repo.name + '</span>' +
+          '<span class="codex-name">' + escapeHtml(repo.name) + '</span>' +
         '</div>' +
-        '<div class="codex-desc">' + t(repo.description) + '</div>' +
+        '<div class="codex-desc">' + te(repo.description) + '</div>' +
         '<div class="codex-footer">' +
           '<span class="codex-lang">' +
-            '<span class="codex-lang-dot" style="background:' + langColor + '"></span>' +
-            repo.language +
+            '<span class="codex-lang-dot" style="background:' + escapeHtml(langColor) + '"></span>' +
+            escapeHtml(repo.language) +
           '</span>' +
           dateHTML +
         '</div>' +
@@ -381,9 +410,9 @@
   // ---- Render files ----
   function renderFiles() {
     var html = SITE_DATA.files.map(function(f) {
-      return '<a href="' + f.url + '" class="file-item" target="_blank" rel="noopener">' +
-        '<span class="file-icon">' + f.icon + '</span>' +
-        '<div class="file-info"><div class="file-name">' + t(f.name) + '</div><div class="file-desc">' + t(f.description) + '</div></div>' +
+      return '<a href="' + escapeHtml(f.url) + '" class="file-item" target="_blank" rel="noopener">' +
+        '<span class="file-icon">' + escapeHtml(f.icon) + '</span>' +
+        '<div class="file-info"><div class="file-name">' + te(f.name) + '</div><div class="file-desc">' + te(f.description) + '</div></div>' +
       '</a>';
     }).join('');
 
@@ -391,16 +420,18 @@
   }
 
   // ---- Render essays ----
+  var sortedEssays = []; // cached for prev/next navigation
+
   function renderEssays() {
-    var sorted = SITE_DATA.essays.slice().sort(function(a, b) { return b.date.localeCompare(a.date); });
-    var html = sorted.map(function(p, idx) {
-      var tagsHTML = p.tags.map(function(tg) { return '<span class="tag">' + t(tg) + '</span>'; }).join('');
-      return '<div class="post-item" data-index="' + SITE_DATA.essays.indexOf(p) + '">' +
-        '<h3 class="post-title-text">' + t(p.title) + '</h3>' +
-        '<p class="post-summary">' + t(p.summary) + '</p>' +
+    sortedEssays = SITE_DATA.essays.slice().sort(function(a, b) { return b.date.localeCompare(a.date); });
+    var html = sortedEssays.map(function(p, idx) {
+      var tagsHTML = p.tags.map(function(tg) { return '<span class="tag">' + te(tg) + '</span>'; }).join('');
+      return '<div class="post-item" data-sorted-index="' + idx + '">' +
+        '<h3 class="post-title-text">' + te(p.title) + '</h3>' +
+        '<p class="post-summary">' + te(p.summary) + '</p>' +
         '<div class="post-foot">' +
           '<div class="post-tags">' + tagsHTML + '</div>' +
-          '<span class="post-date">' + p.date + '</span>' +
+          '<span class="post-date">' + escapeHtml(p.date) + '</span>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -408,7 +439,7 @@
     document.getElementById('postsList').innerHTML = html;
 
     document.querySelectorAll('.post-item').forEach(function(el) {
-      el.addEventListener('click', function() { openEssayModal(parseInt(el.dataset.index)); });
+      el.addEventListener('click', function() { openEssayModal(parseInt(el.dataset.sortedIndex)); });
     });
   }
 
@@ -423,7 +454,7 @@
 
       return '<div class="list-card" data-record="' + i + '">' +
         '<div class="list-top">' +
-          '<span class="list-title">' + t(l.title) + '</span>' +
+          '<span class="list-title">' + te(l.title) + '</span>' +
         '</div>' +
         (l.count ? '<div class="list-bar-area">' +
           '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + pct + '"></div></div>' +
@@ -457,11 +488,11 @@
     var html = (SITE_DATA.achievements || []).slice().sort(function(a, b) {
       return (b.date || '').localeCompare(a.date || '');
     }).map(function(ach) {
-      var descHTML = ach.description ? '<div class="achievement-desc">' + t(ach.description) + '</div>' : '';
+      var descHTML = ach.description ? '<div class="achievement-desc">' + te(ach.description) + '</div>' : '';
       return '<div class="achievement-card">' +
         '<div class="achievement-top">' +
           '<span class="achievement-icon">\u2726</span>' +
-          '<span class="achievement-title">' + t(ach.title) + '</span>' +
+          '<span class="achievement-title">' + te(ach.title) + '</span>' +
           '<span class="achievement-status">' + t(UI_TEXT.statusCompleted) + '</span>' +
         '</div>' +
         descHTML +
@@ -485,10 +516,10 @@
       var phaseText = phaseLabels[tgt.status] ? t(phaseLabels[tgt.status]) : tgt.status;
       return '<div class="target-card phase-' + tgt.status + '">' +
         '<div class="target-top">' +
-          '<span class="target-title">' + t(tgt.title) + '</span>' +
+          '<span class="target-title">' + te(tgt.title) + '</span>' +
           '<span class="target-status-badge">' + phaseText + '</span>' +
         '</div>' +
-        '<div class="target-desc">' + t(tgt.description) + '</div>' +
+        '<div class="target-desc">' + te(tgt.description) + '</div>' +
         '<div class="target-bar-area">' +
           '<div class="skill-bar"><div class="skill-bar-fill" data-level="' + tgt.progress + '"></div></div>' +
           '<span class="target-pct">' + tgt.progress + '%</span>' +
@@ -511,9 +542,11 @@
   }
 
   // ---- Record modal ----
+  var emptyRecordText = { en: 'No entries recorded yet.', zh: '暂无记录。' };
+
   function openRecordModal(index) {
     var list = SITE_DATA.records[index];
-    if (!list || !list.items || list.items.length === 0) return;
+    if (!list) return;
 
     document.getElementById('modalTitle').textContent = t(list.title);
     var actual = list.progress != null ? list.progress : 0;
@@ -521,18 +554,28 @@
     var displayProgress = reached ? list.count : actual;
     document.getElementById('modalMeta').textContent = displayProgress + ' / ' + list.count;
 
+    if (!list.items || list.items.length === 0) {
+      document.getElementById('modalBody').innerHTML = '<p class="empty-hint">' + te(emptyRecordText) + '</p>';
+      document.getElementById('modalNav').innerHTML = '';
+      document.getElementById('modalTags').innerHTML = '';
+      document.getElementById('postModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
     var bodyHTML = '<ol class="list-modal-items">';
     list.items.forEach(function(item, i) {
       var done = reached || i < actual;
       bodyHTML += '<li class="list-modal-item' + (done ? ' done' : '') + '">' +
         '<span class="list-item-num">' + (i + 1) + '</span>' +
-        '<span class="list-item-text">' + t(item) + '</span>' +
+        '<span class="list-item-text">' + te(item) + '</span>' +
         (done ? '<span class="list-item-check">\u2713</span>' : '') +
       '</li>';
     });
     bodyHTML += '</ol>';
 
     document.getElementById('modalBody').innerHTML = bodyHTML;
+    document.getElementById('modalNav').innerHTML = '';
     document.getElementById('modalTags').innerHTML = '';
 
     document.getElementById('postModal').classList.add('open');
@@ -540,19 +583,46 @@
   }
 
   // ---- Essay modal ----
-  function openEssayModal(index) {
-    var post = SITE_DATA.essays[index];
+  var essayNavText = {
+    prev: { en: '\u2190 Prev', zh: '\u2190 上一篇' },
+    next: { en: 'Next \u2192', zh: '下一篇 \u2192' }
+  };
+
+  function openEssayModal(sortedIndex) {
+    var post = sortedEssays[sortedIndex];
     if (!post) return;
 
     document.getElementById('modalTitle').textContent = t(post.title);
     document.getElementById('modalMeta').textContent = post.date;
-    document.getElementById('modalBody').innerHTML = t(post.content)
-      .split('\n\n')
-      .map(function(p) { return '<p>' + p + '</p>'; })
-      .join('');
+    document.getElementById('modalBody').innerHTML =
+      typeof marked !== 'undefined'
+        ? marked.parse(t(post.content))
+        : t(post.content)
+            .split('\n\n')
+            .map(function(p) { return '<p>' + p + '</p>'; })
+            .join('');
     document.getElementById('modalTags').innerHTML = post.tags
-      .map(function(tg) { return '<span class="tag">' + t(tg) + '</span>'; })
+      .map(function(tg) { return '<span class="tag">' + te(tg) + '</span>'; })
       .join('');
+
+    // Build prev/next nav
+    var navHTML = '';
+    if (sortedIndex > 0) {
+      navHTML += '<button class="modal-nav-btn modal-nav-prev" data-idx="' + (sortedIndex - 1) + '">' + t(essayNavText.prev) + '</button>';
+    }
+    if (sortedIndex < sortedEssays.length - 1) {
+      navHTML += '<button class="modal-nav-btn modal-nav-next" data-idx="' + (sortedIndex + 1) + '">' + t(essayNavText.next) + '</button>';
+    }
+    document.getElementById('modalNav').innerHTML = navHTML;
+
+    // Bind nav clicks
+    document.querySelectorAll('.modal-nav-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var modalContent = document.querySelector('#postModal .modal-content');
+        if (modalContent) modalContent.scrollTop = 0;
+        openEssayModal(parseInt(btn.dataset.idx));
+      });
+    });
 
     document.getElementById('postModal').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -620,11 +690,42 @@
   // ---- Initialize ----
   loadSiteData()
     .then(function() {
+      // Restore tab from URL hash
+      var hashState = parseHash();
+      if (hashState) {
+        currentMainTab = hashState.main;
+        currentSubTab = hashState.sub;
+      }
+      updateHash();
       setLang(currentLang);
     })
     .catch(function(err) {
       console.error('Chronicle data not found. Please ensure database/profile.json, database/vocation.json, and database/being.json are readable.', err);
     });
+
+  // Handle browser back/forward
+  window.addEventListener('hashchange', function() {
+    var hashState = parseHash();
+    if (hashState) {
+      currentMainTab = hashState.main;
+      currentSubTab = hashState.sub;
+      buildNav();
+      renderContent();
+    }
+  });
+
+  // ---- Back to top ----
+  var backToTopBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
   // ---- Subscribe system ----
   var SUB_CONFIG = {

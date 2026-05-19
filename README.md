@@ -15,6 +15,13 @@
 - 模块化内容区域：Profile / Vocation / Being
 - 纯静态站点：无需后端服务
 - SVG 站点图标：适配 PC 和移动端，可通过网址链接引入
+- Markdown 随笔：Essays 内容支持 Markdown 语法渲染（基于 marked.js）
+- URL 路由：通过 URL hash 持久化当前 Tab 状态（如 `#being/essays`），支持刷新保留与链接分享
+- SEO 基础：Open Graph 标签、robots.txt、sitemap.xml
+- 无障碍：Modal 使用 `role="dialog"` + `aria-modal`，交互按钮带 `aria-label`
+- XSS 防护：所有 JSON 数据拼接 HTML 前统一转义
+- 回到顶部：页面滚动超过阈值后显示回到顶部按钮
+- 随笔导航：Essay 详情 Modal 内支持上一篇/下一篇切换
 
 ## 时间格式规范
 
@@ -28,6 +35,8 @@
 ├─ index.html                # 页面入口
 ├─ favicon.svg               # 站点图标（SVG）
 ├─ 404.html                  # 404 页面
+├─ robots.txt                # 搜索引擎爬虫规则
+├─ sitemap.xml               # 站点地图
 ├─ CNAME                     # GitHub Pages 自定义域名
 ├─ style/
 │  ├─ chronicle.css          # 样式文件
@@ -39,8 +48,9 @@
 │  └─ documents/             # 附件（如简历 PDF）
 └─ .github/
    └─ workflows/
-      ├─ notify-template.txt  # 邮件通知模板
-      └─ notify-subscribers.yml  # 订阅者邮件通知工作流
+      ├─ notify-template.txt      # 邮件通知模板
+      ├─ notify-subscribers.yml   # 订阅者邮件通知工作流
+      └─ auto-update-date.yml     # 推送时自动更新 lastUpdate 日期
 ```
 
 ## 模块说明
@@ -81,6 +91,18 @@ py -m http.server 8000
 3. 修改 `database/being.json`：随笔、记录（含时间）与成就。
 4. 若更新简历等附件，请将文件放到 `database/documents/` 并同步更新 JSON 中的路径。
 5. 站点图标为 `favicon.svg`，可直接替换。
+6. `lastUpdate` 日期在推送 `database/`、`style/`、`index.html` 变更时由 GitHub Action 自动更新，无需手动维护。
+
+### 随笔 Markdown 写法
+
+Essays 的 `content` 字段支持标准 Markdown 语法。在 JSON 中换行用 `\n`，段落分隔用 `\n\n`。示例：
+
+```json
+"content": {
+  "en": "## Section Title\n\nA paragraph with **bold** and *italic*.\n\n- List item one\n- List item two\n\n> A blockquote.",
+  "zh": "## 小标题\n\n一段包含**加粗**和*斜体*的文字。\n\n- 列表项一\n- 列表项二\n\n> 引用内容。"
+}
+```
 
 ## 订阅功能配置
 
@@ -129,6 +151,7 @@ py -m http.server 8000
 - CSS3
 - Vanilla JavaScript
 - JSON
+- [marked.js](https://github.com/markedjs/marked)（Markdown 渲染）
 
 ## License
 
