@@ -753,7 +753,7 @@
     msgNoWorker: { en: 'Subscribe service is not configured yet.', zh: '订阅服务尚未配置。' },
     msgError: { en: 'Something went wrong. Please try again later.', zh: '出了点问题，请稍后再试。' },
     msgSending: { en: 'Processing...', zh: '处理中...' },
-    vpnHint: { en: '* Requires VPN in mainland China', zh: '* 订阅功能需科学上网' }
+    vpnHint: { en: '⚠️ VPN required in mainland China', zh: '⚠️ 订阅功能需科学上网（VPN）' }
   };
 
   var subMode = 'subscribe'; // 'subscribe' or 'unsubscribe'

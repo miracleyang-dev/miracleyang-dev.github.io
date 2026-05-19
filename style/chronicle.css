@@ -22,6 +22,7 @@
   --accent-gold: #c8a84e;
   --accent-gold-dim: #8a7030;
   --accent-warm: #b85c38;
+  --accent-warm-bg: rgba(184,92,56,0.1);
   --accent-green: #5a8a4a;
   --xp-bar-bg: #1a1610;
   --xp-bar-fill: linear-gradient(90deg, #8a7030, #c8a84e);
@@ -48,6 +49,7 @@
   --accent-gold: #8a7030;
   --accent-gold-dim: #a08050;
   --accent-warm: #b85c38;
+  --accent-warm-bg: rgba(184,92,56,0.1);
   --accent-green: #4a7a3a;
   --xp-bar-bg: #e8e0d0;
   --xp-bar-fill: linear-gradient(90deg, #a08050, #c8a84e);
@@ -708,10 +710,13 @@ a:hover { color: var(--text-primary); }
 .sub-msg.info { color: var(--text-muted); }
 
 .sub-vpn-hint {
-  font-family: var(--font-mono); font-size: 0.64rem;
-  color: var(--text-muted); opacity: 0.7;
-  margin-top: 6px; padding: 0 4px;
-  line-height: 1.4;
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+  color: var(--accent-warm);
+  margin-top: 8px; padding: 6px 8px;
+  line-height: 1.45;
+  border-left: 2px solid var(--accent-warm);
+  background: var(--accent-warm-bg);
+  border-radius: 4px;
 }
 
 .sub-toggle-mode {
@@ -1123,4 +1128,3 @@ a:hover { color: var(--text-primary); }
   .profile-name { font-size: 1.15rem; }
   .avatar-frame { width: 96px; height: 114px; }
 }
-
