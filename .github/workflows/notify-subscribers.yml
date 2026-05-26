@@ -72,8 +72,47 @@ jobs:
 
           function toHtml(text) {
             const escaped = escapeHtml(text);
-            const withLinks = escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1">$1</a>');
-            return withLinks.replace(/\r?\n/g, '<br>');
+            const withLinks = escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#c8a84e;text-decoration:underline;">$1</a>');
+            const bodyContent = withLinks.replace(/\r?\n/g, '<br>');
+            return `<!DOCTYPE html>
+          <html lang="en">
+          <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+          <title>Chronicle Update</title></head>
+          <body style="margin:0;padding:0;background-color:#0f0d0a;font-family:Georgia,'Times New Roman',serif;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#0f0d0a;">
+          <tr><td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#1e1a14;border:1px solid #3d3428;">
+          <!-- Header -->
+          <tr><td style="padding:32px 24px 20px;text-align:center;border-bottom:1px solid #3d3428;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+          <td style="text-align:center;">
+          <div style="margin-bottom:12px;">
+          <span style="display:inline-block;width:60px;height:1px;background:#a08050;vertical-align:middle;"></span>
+          <span style="display:inline-block;width:8px;height:8px;background:#a08050;transform:rotate(45deg);margin:0 12px;vertical-align:middle;"></span>
+          <span style="display:inline-block;width:60px;height:1px;background:#a08050;vertical-align:middle;"></span>
+          </div>
+          <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;color:#c8a84e;letter-spacing:0.15em;text-transform:uppercase;">CHRONICLE</h1>
+          <p style="margin:6px 0 0;font-family:Georgia,'Times New Roman',serif;font-size:13px;color:#7a6e5e;font-style:italic;letter-spacing:0.05em;">New Update Available</p>
+          </td></tr></table>
+          </td></tr>
+          <!-- Body -->
+          <tr><td style="padding:28px 32px;">
+          <div style="font-family:Georgia,'Times New Roman',serif;font-size:15px;color:#b0a08a;line-height:1.8;">
+          ${bodyContent}
+          </div>
+          </td></tr>
+          <!-- CTA Button -->
+          <tr><td style="padding:0 32px 28px;text-align:center;">
+          <a href="https://miracleyang.com/" style="display:inline-block;padding:12px 32px;background-color:#c8a84e;color:#0f0d0a;font-family:Georgia,'Times New Roman',serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Visit Chronicle</a>
+          </td></tr>
+          <!-- Footer -->
+          <tr><td style="padding:20px 24px;border-top:1px solid #3d3428;text-align:center;">
+          <p style="margin:0;font-family:'Courier New',monospace;font-size:11px;color:#7a6e5e;letter-spacing:0.05em;">You received this because you subscribed to Chronicle updates.</p>
+          <p style="margin:8px 0 0;font-family:'Courier New',monospace;font-size:11px;color:#7a6e5e;">Visit <a href="https://miracleyang.com/" style="color:#c8a84e;text-decoration:underline;">miracleyang.com</a> to unsubscribe.</p>
+          </td></tr>
+          </table>
+          </td></tr></table>
+          </body></html>`;
           }
 
           function parseEmail(title) {

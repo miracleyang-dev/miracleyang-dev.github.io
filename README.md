@@ -14,7 +14,8 @@
 - 数据驱动：通过 `database/*.json` 管理页面内容
 - 模块化内容区域：Profile / Vocation / Being
 - 纯静态站点：无需后端服务
-- SVG 站点图标：适配 PC 和移动端，可通过网址链接引入
+- SVG 站点图标：双层菱形 + C 字母组合设计，适配 PC 和移动端
+- SVG 图标体系：订阅按钮等 UI 图标采用 inline SVG，风格统一、简约，与整体 UI 一致
 - Markdown 随笔：Essays 内容支持 Markdown 语法渲染（基于 marked.js）
 - URL 路由：通过 URL hash 持久化当前 Tab 状态（如 `#being/essays`），支持刷新保留与链接分享
 - SEO 基础：Open Graph 标签、robots.txt、sitemap.xml
@@ -22,6 +23,8 @@
 - XSS 防护：所有 JSON 数据拼接 HTML 前统一转义
 - 回到顶部：页面滚动超过阈值后显示回到顶部按钮
 - 随笔导航：Essay 详情 Modal 内支持上一篇/下一篇切换
+- 响应式布局：订阅弹窗等所有 Modal 自适应移动端屏幕，无横向滚动
+- 邮件模板：订阅通知邮件采用响应式 HTML 模板，兼容主流邮箱客户端，设计风格与站点统一
 
 ## 时间格式规范
 
@@ -128,7 +131,7 @@ Essays 的 `content` 字段支持标准 Markdown 语法。在 JSON 中换行用 
    - `SMTP_PASS`
 6. **发送通知**：在 GitHub Actions 中手动触发 [notify-subscribers.yml](.github/workflows/notify-subscribers.yml)，填写邮件标题与内容即可群发。
    默认模板在 [.github/workflows/notify-template.txt](.github/workflows/notify-template.txt)（首行 Subject，空行后正文）。
-   邮件会同时发送纯文本与 HTML，链接会自动转换为可点击的 URL。
+   邮件使用响应式 HTML 模板发送，包含 Chronicle 品牌头部、正文内容、CTA 按钮与页脚信息，全内联样式兼容 Gmail/Outlook/QQ邮箱等主流客户端。链接会自动转换为可点击的 URL。
 
 ## 部署说明
 
