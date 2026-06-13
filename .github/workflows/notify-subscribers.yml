@@ -119,7 +119,12 @@ jobs:
             const match = /^\[subscribe\]\s+(.+)$/.exec(title || '');
             if (!match) return null;
             const email = match[1].trim().toLowerCase();
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
+            const STRICT = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
+            if (!STRICT.test(email)) {
+              console.warn(`::warning::Skipping invalid subscriber email from issue title: ${title}`);
+              return null;
+            }
+            return email;
           }
 
           async function listSubscribers() {
@@ -185,3 +190,23 @@ jobs:
             process.exit(1);
           });
           NODE
+
+      - name: Open issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[CI Failure] notify-subscribers run #${context.runNumber}`,
+              body: [
+                'The notify-subscribers workflow failed.',
+                '',
+                `Run: ${runUrl}`,
+                `Triggered by: @${context.actor}`,
+                `Commit: ${context.sha}`
+              ].join('\n'),
+              labels: ['ci-failure']
+            });

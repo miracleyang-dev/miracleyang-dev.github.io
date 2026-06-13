@@ -1,0 +1,106 @@
+name: Generate sitemap and feed
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "database/being.json"
+      - "database/profile.json"
+
+concurrency:
+  group: gen-sitemap-feed
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build sitemap.xml and feed.xml
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const SITE = 'https://miracleyang.com';
+
+          function readJson(p) {
+            try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { return {}; }
+          }
+
+          function pickLang(v, fallback) {
+            if (v == null) return fallback;
+            if (typeof v === 'string') return v;
+            if (typeof v === 'object') return v.en || v.zh || fallback;
+            return fallback;
+          }
+
+          function escapeXml(s) {
+            return String(s == null ? '' : s)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&apos;');
+          }
+
+          function toIso(d) {
+            if (!d) return new Date().toISOString();
+            // accept YYYY-MM-DD or YYYY-MM
+            const s = String(d);
+            if (/^\d{4}-\d{2}$/.test(s)) return new Date(s + '-01T00:00:00Z').toISOString();
+            const dt = new Date(s);
+            return isNaN(dt.getTime()) ? new Date().toISOString() : dt.toISOString();
+          }
+
+          const being = readJson('database/being.json');
+          const profile = readJson('database/profile.json');
+          const essays = Array.isArray(being.essays) ? being.essays.slice() : [];
+
+          // Sort newest first by date
+          essays.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+
+          // sitemap.xml
+          const urls = [`  <url>\n    <loc>${SITE}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>`];
+          essays.forEach((e, i) => {
+            const slug = e.slug || e.id || ('essay-' + i);
+            urls.push(`  <url>\n    <loc>${SITE}/#essay/${escapeXml(slug)}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`);
+          });
+          const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+          fs.writeFileSync('sitemap.xml', sitemap);
+
+          // feed.xml (Atom 1.0)
+          const updated = toIso((profile.site && profile.site.lastUpdate) || essays[0] && essays[0].date);
+          const entries = essays.map((e, i) => {
+            const slug = e.slug || e.id || ('essay-' + i);
+            const title = pickLang(e.title, 'Untitled');
+            const summary = pickLang(e.summary, '');
+            const updatedAt = toIso(e.date);
+            const href = `${SITE}/#essay/${slug}`;
+            return `  <entry>\n    <id>${escapeXml(href)}</id>\n    <title>${escapeXml(title)}</title>\n    <link href="${escapeXml(href)}"/>\n    <updated>${updatedAt}</updated>\n    <summary>${escapeXml(summary)}</summary>\n  </entry>`;
+          }).join('\n');
+          const feed = `<?xml version="1.0" encoding="UTF-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n  <title>Chronicle — Miracle Yang</title>\n  <link href="${SITE}/" rel="alternate"/>\n  <link href="${SITE}/feed.xml" rel="self"/>\n  <id>${SITE}/</id>\n  <updated>${updated}</updated>\n${entries}\n</feed>\n`;
+          fs.writeFileSync('feed.xml', feed);
+
+          console.log(`Wrote sitemap with ${essays.length} essays.`);
+          NODE
+
+      - name: Commit regenerated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml feed.xml
+          if git diff --cached --quiet; then
+            echo "No changes to sitemap/feed, skipping commit."
+          else
+            git commit -m "chore: regenerate sitemap.xml and feed.xml [skip ci]"
+            git push
+          fi

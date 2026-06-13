@@ -67,7 +67,15 @@
   };
 
   // ---- State ----
-  var currentLang = localStorage.getItem('chronicle-lang') || 'en';
+  var currentLang = (function () {
+    try { return localStorage.getItem('chronicle-lang') || 'en'; } catch (e) { return 'en'; }
+  })();
+  function safeLocalSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* storage unavailable */ }
+  }
+  function safeLocalGet(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
   var currentMainTab = 'profile';
   var currentSubTab = null; // null means show all sub-tabs combined
 
@@ -654,7 +662,7 @@
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     icon.textContent = theme === 'dark' ? '\u263d' : '\u2600';
-    localStorage.setItem('chronicle-theme', theme);
+    safeLocalSet('chronicle-theme', theme);
   }
 
   toggle.addEventListener('click', function() {
@@ -662,7 +670,7 @@
     setTheme(current === 'dark' ? 'light' : 'dark');
   });
 
-  var savedTheme = localStorage.getItem('chronicle-theme');
+  var savedTheme = safeLocalGet('chronicle-theme');
   if (savedTheme) setTheme(savedTheme);
 
   // ---- Language toggle ----
@@ -670,7 +678,7 @@
 
   function setLang(lang) {
     currentLang = lang;
-    localStorage.setItem('chronicle-lang', lang);
+    safeLocalSet('chronicle-lang', lang);
     document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
 
     langToggle.querySelectorAll('.lang-option').forEach(function(el) {
@@ -701,6 +709,10 @@
     })
     .catch(function(err) {
       console.error('Chronicle data not found. Please ensure database/profile.json, database/vocation.json, and database/being.json are readable.', err);
+      var main = document.querySelector('main');
+      if (main) {
+        main.innerHTML = '<div style="padding:2rem;text-align:center;opacity:.6">\u26A0 Content failed to load. Please refresh.</div>';
+      }
     });
 
   // Handle browser back/forward

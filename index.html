@@ -6,15 +6,25 @@
 <title>Chronicle</title>
 <meta name="description" content="Miracle Yang's personal chronicle — essays, records, achievements, and the journey of growth.">
 <meta name="author" content="Miracle Yang">
+<link rel="canonical" href="https://miracleyang.com/">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark light">
 <meta property="og:title" content="Chronicle — Miracle Yang">
 <meta property="og:description" content="Essays, records, achievements, and the journey of growth.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://miracleyang.com">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:image" content="https://miracleyang.com/favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chronicle — Miracle Yang">
+<meta name="twitter:description" content="Essays, records, achievements, and the journey of growth.">
+<meta name="twitter:image" content="https://miracleyang.com/favicon.svg">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.cn">
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
+<link href="https://fonts.googleapis.cn/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style/chronicle.css">
 </head>
 <body>
@@ -96,9 +106,16 @@
 <!-- Back to top -->
 <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8593;</button>
 
-<script src="https://cdn.jsdelivr.net/npm/marked@15.0.4/marked.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/marked/15.0.4/marked.min.js" integrity="sha384-2NndlFAl0twi2nmu3w9mixodZFiN2fbxlakcYJF86bn1JeS1VB87/XqA7cqymzS+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="style/chronicle.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
+</script>
 </body>
 </html>
 

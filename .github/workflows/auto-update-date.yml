@@ -7,6 +7,15 @@ on:
       - "database/**"
       - "style/**"
       - "index.html"
+    paths-ignore:
+      - "README.md"
+      - "sitemap.xml"
+      - "feed.xml"
+      - ".github/workflows/**"
+
+concurrency:
+  group: auto-update-date
+  cancel-in-progress: true
 
 jobs:
   update-date:
@@ -27,8 +36,12 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add database/profile.json
-            git commit -m "chore: auto-update lastUpdate to $TODAY"
-            git push
+            if git diff --cached --quiet; then
+              echo "No staged changes after sed, skipping commit."
+            else
+              git commit -m "chore: auto-update lastUpdate to $TODAY [skip ci]"
+              git push
+            fi
           else
             echo "Date already current ($TODAY), skipping."
           fi

@@ -1,0 +1,27 @@
+name: Subscribe to Chronicle Updates
+description: Leave your email to be notified when new Chronicle content ships.
+title: "[subscribe] your@email.com"
+labels:
+  - subscribe
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for subscribing to Chronicle. Please fill in your email and confirm
+        consent below. You can unsubscribe any time by closing this issue or via
+        the Subscribe modal on the site.
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: A valid email address that will receive Chronicle updates.
+      placeholder: your@email.com
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: I agree to receive subscription emails from Chronicle and understand I can unsubscribe at any time.
+          required: true

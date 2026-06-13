@@ -1,7 +1,7 @@
 ﻿/* === CSS VARIABLES === */
 :root {
   --font-display: 'Cinzel', 'Noto Serif SC', serif;
-  --font-body: 'Crimson Text', 'Noto Serif SC', serif;
+  --font-body: 'Noto Serif SC', serif;
   --font-mono: 'JetBrains Mono', monospace;
   --transition-speed: 0.35s;
 }
